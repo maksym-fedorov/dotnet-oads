@@ -1,29 +1,25 @@
 ## Office Add-in Dev Server
 
-IIS Express replacement for debugging [Office Add-ins](https://dev.office.com/docs/add-ins/overview/office-add-ins) on macOS - a .NET Core app which can host static files via HTTPS.
+IIS Express replacement for debugging [Office Add-ins](https://dev.office.com/docs/add-ins/overview/office-add-ins) on macOS - a .NET Core app which hosts static files using HTTPS.
 
 ### Build instructions:
 
 1. Install [.NET Core for macOS](https://www.microsoft.com/net/core#macos)
-2. `dotnet restore src`
-3. `dotnet build src`
-4. `dotnet publish src -c Release`
-
-Output files are located at `bin/bin/Release/netcoreapp1.1/publish/`.
+2. Execute `dotnet restore src`
+3. Execute `dotnet build src`
+4. Execute `dotnet publish src -c Release`
 
 ### Run instructions:
 
-Server supports the following options:
+1. Add default certificate `etc/certificate/certificate.cer` to a keychain
+2. Copy default certificate `etc/certificate/certificate.pfx` to `bin/bin/Release/netcoreapp1.1/publish/`
+3. Execute `dotnet bin/bin/Release/netcoreapp1.1/publish/oads.dll -sr <server_root_directory>`
 
-Short Form | Long Form | Mandatory | Default Value | Purpose
+### Available options:
+
+Option | Short Form | Mandatory | Default Value | Purpose
 --- | --- | :---: | --- | ---
-`-sp` | `--server-port` | No | `44300` | Server port
-`-sr` | `--server-root` | Yes | | Server root directory
-`-cf` | `--cert-file` | No | `./certificate.pfx` | Certificate file in PKCS #12 format
-`-cp` | `--cert-password` | No | Empty String | Certificate password
-
-Repository contains a self-signed certificate located at `etc/certificate/certificate.pfx` without password, which can be used as a default (however it should be added to a keychain at first).
-
-Server command line with the default options is:
-
-`dotnet oads.dll -sr /office_addin_files/`
+`--server-port` | `-sp` | No | `44300` | Server port
+`--server-root` | `-sr` | Yes | | Server root directory
+`--cert-file` | `-cf` | No | `./certificate.pfx` | Certificate file in PKCS #12 format
+`--cert-password` | `-cp` | No | Empty String | Certificate password

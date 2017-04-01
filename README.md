@@ -4,8 +4,6 @@ IIS Express replacement for debugging [Office Add-ins](https://dev.office.com/do
 
 ### Build instructions:
 
-Run the following commands:
-
 1. `dotnet restore src`
 2. `dotnet build src`
 3. `dotnet publish src -c Release`
@@ -14,16 +12,17 @@ Output files are located at `bin/bin/Release/netcoreapp1.1/publish/`.
 
 ### Run instructions:
 
-Server requires an SSL certificate in PKCS #12 format named `certificate.pfx` in the same directory. Repository contains a self-signed certificate located at `etc/certificate/certificate.pfx` with the password `OFFICE_ADDIN_DEV_SERVER`, which can be used as a default (however it should be added to a keychain at first).
-
 Server supports the following options:
 
-Short Form | Long Form | Mandatory | Purpose
---- | --- | :---: | ---
-`-sp` | `--server-port` | `Yes` | Server port
-`-sr` | `--site-root` | `Yes` | Office add-in files directory
-`-cp` | `--cert-password` | `No` | Certificate password
+Short Form | Long Form | Mandatory | Default Value | Purpose
+--- | --- | :---: | --- | ---
+`-sp` | `--server-port` | No | `44300` | Server port
+`-sr` | `--server-root` | Yes | | Server root directory
+`-cf` | `--cert-file` | No | `./certificate.pfx` | Certificate file in PKCS #12 format
+`-cp` | `--cert-password` | No | Empty String | Certificate password
+
+Repository contains a self-signed certificate located at `etc/certificate/certificate.pfx` without password, which can be used as a default (however it should be added to a keychain at first).
 
 Server command line with the default options is:
 
-`dotnet bin/bin/Release/netcoreapp1.1/publish/oads.dll --server-port 44300 --site-root /office_addin_files/ --cert-password OFFICE_ADDIN_DEV_SERVER`
+`dotnet oads.dll -sr /office_addin_files/`

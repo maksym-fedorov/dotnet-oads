@@ -4,9 +4,10 @@ IIS Express replacement for debugging [Office Add-ins](https://dev.office.com/do
 
 ### Build instructions:
 
-1. `dotnet restore src`
-2. `dotnet build src`
-3. `dotnet publish src -c Release`
+1. Install [.NET Core for macOS](https://www.microsoft.com/net/core#macos)
+2. `dotnet restore src`
+3. `dotnet build src`
+4. `dotnet publish src -c Release`
 
 Output files are located at `bin/bin/Release/netcoreapp1.1/publish/`.
 

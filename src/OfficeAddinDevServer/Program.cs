@@ -5,7 +5,6 @@ using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.CommandLineUtils;
-using Microsoft.Extensions.Logging;
 
 namespace OfficeAddinDevServer
 {
@@ -42,11 +41,11 @@ namespace OfficeAddinDevServer
 
                 if (!siteRootOption.HasValue())
                     throw new InvalidOperationException($"{siteRootOption.Description} is not specified");
-
-                siteRootValue = siteRootOption.Value();
-
-                if (!Directory.Exists(siteRootValue))
+                if (!Directory.Exists(siteRootOption.Value()))
                     throw new InvalidOperationException($"{siteRootOption.Description} doesn't exist");
+
+                siteRootValue = Path.GetFullPath(siteRootOption.Value());
+
                 if (certFileOption.HasValue())
                     certFileValue = Path.GetFullPath(certFileOption.Value());
                 if (!File.Exists(certFileValue))
@@ -78,16 +77,6 @@ namespace OfficeAddinDevServer
             catch (Exception e)
             {
                 Console.WriteLine($"ERROR: {e.Message}");
-            }
-        }
-
-        private sealed class Startup
-        {
-            public void Configure(IApplicationBuilder appBuilder, ILoggerFactory loggerFactory)
-            {
-                appBuilder.UseStaticFiles();
-                appBuilder.UseStatusCodePages();
-                loggerFactory.AddConsole();
             }
         }
     }

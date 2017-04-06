@@ -2,49 +2,51 @@
 using System.Globalization;
 using System.IO;
 using System.Reflection;
-using Microsoft.AspNetCore.Builder;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.CommandLineUtils;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace OfficeAddinDevServer
 {
     internal static class Program
     {
-        private static readonly Assembly _assembly = typeof(Program).GetTypeInfo().Assembly;
-
         public static void Main(string[] args)
         {
-            Console.WriteLine($"{_assembly.GetCustomAttribute<AssemblyProductAttribute>().Product} {_assembly.GetName().Version}");
+            var assembly = typeof(Program).GetTypeInfo().Assembly;
+
+            Console.WriteLine($"{assembly.GetCustomAttribute<AssemblyProductAttribute>().Product} {assembly.GetName().Version}");
             Console.WriteLine();
 
-            var clapp = new CommandLineApplication();
+            var app = new CommandLineApplication();
 
-            var portOption = clapp.Option("-sp | --server-port <value>", "Server port", CommandOptionType.SingleValue);
-            var siteRootOption = clapp.Option("-sr | --server-root <value>", "Server root directory", CommandOptionType.SingleValue);
-            var certFileOption = clapp.Option("-cf | --cert-file <value>", "Certificate file in PKCS #12 format", CommandOptionType.SingleValue);
-            var certPasswordOption = clapp.Option("-cp | --cert-password <value>", "Certificate password", CommandOptionType.SingleValue);
+            var serverPortOption = app.Option("-sp | --server-port <value>", "Server port", CommandOptionType.SingleValue);
+            var serverRootOption = app.Option("-sr | --server-root <value>", "Server root directory", CommandOptionType.SingleValue);
+            var certFileOption = app.Option("-xf | --x509-file <value>", "X.509 certificate file", CommandOptionType.SingleValue);
+            var certPasswordOption = app.Option("-xp | --cert-password <value>", "X.509 certificate password", CommandOptionType.SingleValue);
 
-            var portValue = 44300;
-            var siteRootValue = default(string);
-            var certFileValue = Path.Combine(Path.GetDirectoryName(_assembly.Location), "certificate.pfx");
+            var serverPortValue = 44300;
+            var serverRootValue = default(string);
+            var certFileValue = Path.Combine(Path.GetDirectoryName(assembly.Location), "certificate.pfx");
             var certPasswordValue = string.Empty;
 
             try
             {
-                clapp.Execute(args);
+                app.Execute(args);
 
-                if (portOption.HasValue())
+                if (serverPortOption.HasValue())
                 {
-                    if (!int.TryParse(portOption.Value(), NumberStyles.None, CultureInfo.InvariantCulture, out portValue))
-                        throw new InvalidOperationException($"{portOption.Description} has invalid value");
+                    if (!int.TryParse(serverPortOption.Value(), NumberStyles.None, CultureInfo.InvariantCulture, out serverPortValue))
+                        throw new InvalidOperationException($"{serverPortOption.Description} has invalid value");
                 }
 
-                if (!siteRootOption.HasValue())
-                    throw new InvalidOperationException($"{siteRootOption.Description} is not specified");
-                if (!Directory.Exists(siteRootOption.Value()))
-                    throw new InvalidOperationException($"{siteRootOption.Description} doesn't exist");
+                if (!serverRootOption.HasValue())
+                    throw new InvalidOperationException($"{serverRootOption.Description} is not specified");
+                if (!Directory.Exists(serverRootOption.Value()))
+                    throw new InvalidOperationException($"{serverRootOption.Description} doesn't exist");
 
-                siteRootValue = Path.GetFullPath(siteRootOption.Value());
+                serverRootValue = Path.GetFullPath(serverRootOption.Value());
 
                 if (certFileOption.HasValue())
                     certFileValue = Path.GetFullPath(certFileOption.Value());
@@ -54,29 +56,62 @@ namespace OfficeAddinDevServer
                     certPasswordValue = certPasswordOption.Value();
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.Write($"ERROR: {e.Message}");
+                Console.Write($"ERROR: {ex.Message}");
 
-                clapp.ShowHelp();
+                app.ShowHelp();
 
                 Environment.Exit(1);
             }
 
             try
             {
-                new WebHostBuilder()
-                    .UseKestrel(x => x.UseHttps(certFileValue, certPasswordValue))
-                    .UseUrls(new UriBuilder("https", "localhost", portValue).Uri.OriginalString)
+                var certificate = new X509Certificate2(certFileValue, certPasswordValue);
+
+                var host = new WebHostBuilder()
+                    .UseKestrel(x => x.UseHttps(certificate))
+                    .UseUrls(new UriBuilder("https", "localhost", serverPortValue).Uri.OriginalString)
                     .UseStartup<Startup>()
-                    .UseWebRoot(siteRootValue)
-                    .UseContentRoot(siteRootValue)
-                    .Build()
-                    .Run();
+                    .UseWebRoot(serverRootValue)
+                    .UseContentRoot(serverRootValue)
+                    .Build();
+
+                var resetEvent = new ManualResetEventSlim(false);
+
+                using (var cancellationTokenSource = new CancellationTokenSource())
+                {
+                    Console.CancelKeyPress += (sender, e) =>
+                    {
+                        if (!cancellationTokenSource.IsCancellationRequested)
+                            cancellationTokenSource.Cancel();
+
+                        resetEvent.Wait();
+                        e.Cancel = true;
+                    };
+
+                    using (host)
+                    {
+                        host.Start();
+
+                        Console.WriteLine($"SERVER_ROOT: \"{serverRootValue}\"");
+                        Console.WriteLine($"SERVER_PORT: {serverPortValue}");
+                        Console.WriteLine($"X509_FILE: \"{certFileValue}\"");
+                        Console.WriteLine($"X509_SUBJECT: \"{certificate.Subject}\"");
+                        Console.WriteLine();
+
+                        var applicationLifetime = host.Services.GetService<IApplicationLifetime>();
+
+                        cancellationTokenSource.Token.Register(state => ((IApplicationLifetime)state).StopApplication(), applicationLifetime);
+                        applicationLifetime.ApplicationStopping.WaitHandle.WaitOne();
+                    }
+
+                    resetEvent.Set();
+                }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine($"ERROR: {e.Message}");
+                Console.WriteLine($"ERROR: {ex.Message}");
             }
         }
     }

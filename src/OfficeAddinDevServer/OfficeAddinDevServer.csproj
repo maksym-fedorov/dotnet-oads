@@ -14,10 +14,15 @@
     <DebugType>none</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Assets\*" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel.Https" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
   </ItemGroup>
+  <Target Name="CopyCertificate" AfterTargets="Build">
+    <Copy SourceFiles="..\..\etc\certificate\certificate.pfx" DestinationFolder="$(OutputPath)" />
+  </Target>
 </Project>

@@ -1,20 +1,20 @@
 ## Office Add-in Dev Server
 
-IIS Express replacement for debugging [Office Add-ins](https://dev.office.com/docs/add-ins/overview/office-add-ins) on macOS - a .NET Core app which hosts static files using HTTPS.
+IIS Express replacement for debugging [Office Add-ins](https://dev.office.com/docs/add-ins/overview/office-add-ins) on macOS - a .NET Core app which hosts static files using HTTPS
 
 ### Build and run instructions:
 
-1. Install [.NET Core for macOS](https://www.microsoft.com/net/core#macos)
-2. Execute `dotnet restore src`
-3. Execute `dotnet publish src -c Release`
-4. Copy default certificate `etc/certificate/certificate.pfx` to `bin/bin/Release/netcoreapp1.1/publish/`
-5. Execute `dotnet bin/bin/Release/netcoreapp1.1/publish/oads.dll -sr <addin_directory>`
+- Install [.NET Core for macOS](https://www.microsoft.com/net/core#macos)
+- Execute `dotnet restore src`
+- Execute `dotnet publish src -c release`
+- Copy default certificate `etc/certificate/certificate.pfx` to publish directory
+- Execute `dotnet oads.dll --server-root <addin_directory>` in publish directory
 
-### Available options:
+### Available parameters:
 
-Option | Short Form | Mandatory | Default Value | Purpose
+CLI | `settings.json` | Mandatory | Default Value | Purpose
 --- | --- | :---: | --- | ---
-`--server-port` | `-sp` | No | `44300` | Server port
-`--server-root` | `-sr` | Yes | | Server root directory
-`--x509-file` | `-xf` | No | `./certificate.pfx` | X.509 certificate file
-`--x509-password` | `-xp` | No | Empty String | X.509 certificate password
+`--server-port` | `server-port` | No | `44300` | Server port
+`--server-root` | `server-root` | Yes | | Server root directory
+`--x509-file` | `x509-file` | No | `certificate.pfx` | X.509 certificate file path
+`--x509-password` | `x509-password` | No | Empty String | X.509 certificate password

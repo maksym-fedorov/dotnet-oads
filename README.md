@@ -18,3 +18,5 @@ CLI | `settings.json` | Mandatory | Default Value | Purpose
 `--server-root` | `server-root` | Yes | | Server root directory
 `--x509-file` | `x509-file` | No | `certificate.pfx` | X.509 certificate file path
 `--x509-password` | `x509-password` | No | Empty String | X.509 certificate password
+
+[Tweet this repository](https://twitter.com/intent/tweet?text=Check%20out%20Office%20Add-in%20Dev%20Server%20on%20GitHub&url=https%3A%2F%2Fgithub.com%2Falexanderkozlenko%2Foads)

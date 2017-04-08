@@ -2,13 +2,16 @@
 
 IIS Express replacement for debugging [Office Add-ins](https://dev.office.com/docs/add-ins/overview/office-add-ins) on macOS - a .NET Core app which hosts static files using HTTPS
 
-### Build and run instructions:
+### Run instructions:
 
 - Install [.NET Core for macOS](https://www.microsoft.com/net/core#macos)
-- Execute `dotnet restore src`
-- Execute `dotnet publish src -c release`
-- Copy default certificate `etc/certificate/certificate.pfx` to publish directory
-- Execute `dotnet oads.dll --server-root <addin_directory>` in publish directory
+- Execute the following commands:
+
+```
+dotnet restore ./src
+dotnet publish ./src -c Release
+dotnet ./bin/bin/Release/netcoreapp1.1/oads.dll --server-root <addin-directory>
+```
 
 ### Available parameters:
 

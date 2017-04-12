@@ -3,7 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace OfficeAddinDevServer.Resources
+namespace Community.Office.AddinServer.Resources
 {
     /// <summary>Represents a resource manager that provides convenient access to embedded resources at run time.</summary>
     internal static class EmbeddedResourceManager

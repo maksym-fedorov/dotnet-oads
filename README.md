@@ -1,4 +1,4 @@
-## Office Add-in Dev Server
+## Office Add-in Development Server
 
 IIS Express replacement for debugging [Office Add-ins](https://dev.office.com/docs/add-ins/overview/office-add-ins) on macOS - a .NET Core app which hosts static files using HTTPS
 

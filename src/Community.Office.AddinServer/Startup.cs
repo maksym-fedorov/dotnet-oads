@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using OfficeAddinDevServer.Middleware;
-using OfficeAddinDevServer.Resources;
+using Community.Office.AddinServer.Middleware;
+using Community.Office.AddinServer.Resources;
 
-namespace OfficeAddinDevServer
+namespace Community.Office.AddinServer
 {
     /// <summary>Server startup logic.</summary>
     internal sealed class Startup
@@ -18,7 +18,14 @@ namespace OfficeAddinDevServer
         {
             app.UseMiddleware<RequestHandling>();
             app.UseMiddleware<RequestTracing>();
-            app.UseStaticFiles(new StaticFileOptions { ServeUnknownFileTypes = true });
+
+            var staticFileOptions = new StaticFileOptions
+            {
+                ServeUnknownFileTypes = true,
+                DefaultContentType = "application/octet-stream"
+            };
+
+            app.UseStaticFiles(staticFileOptions);
             app.UseStatusCodePages(CreateStatus);
         }
 

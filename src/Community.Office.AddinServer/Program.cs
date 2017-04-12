@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace OfficeAddinDevServer
+namespace Community.Office.AddinServer
 {
     internal static class Program
     {
@@ -94,10 +94,10 @@ namespace OfficeAddinDevServer
                     {
                         host.Start();
 
-                        Console.WriteLine($"server-root: \"{serverRoot}\"");
-                        Console.WriteLine($"server-port: {serverPort}");
-                        Console.WriteLine($"x509-file: \"{x509File}\"");
-                        Console.WriteLine($"x509-subject: \"{certificate.Subject}\"");
+                        Console.WriteLine($"Server root: \"{serverRoot}\"");
+                        Console.WriteLine($"Server port: {serverPort}");
+                        Console.WriteLine($"X.509 file: \"{x509File}\"");
+                        Console.WriteLine($"X.509 subject: \"{certificate.Subject}\"");
                         Console.WriteLine();
 
                         var applicationLifetime = host.Services.GetService<IApplicationLifetime>();

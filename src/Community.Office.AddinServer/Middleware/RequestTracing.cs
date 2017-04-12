@@ -4,7 +4,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace OfficeAddinDevServer.Middleware
+namespace Community.Office.AddinServer.Middleware
 {
     /// <summary>Add-in request tracking middleware.</summary>
     internal sealed class RequestTracing

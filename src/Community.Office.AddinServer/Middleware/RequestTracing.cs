@@ -21,7 +21,9 @@ namespace Community.Office.AddinServer.Middleware
             await _next(context);
 
             if (string.Compare(context.Request.Method, "GET", StringComparison.OrdinalIgnoreCase) != 0)
+            {
                 return;
+            }
 
             var messageTimestamp = DateTime.Now.ToString("yyyy'-'MM'-'dd' 'HH':'mm':'ss'.'ffff", CultureInfo.InvariantCulture);
             var message = $"{messageTimestamp} {context.Response.StatusCode} \"{context.Request.Path}{context.Request.QueryString}\"";

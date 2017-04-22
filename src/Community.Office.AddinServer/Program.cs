@@ -33,24 +33,36 @@ namespace Community.Office.AddinServer
                 var configuration = configurationBuilder.Build();
 
                 if (configuration["server-root"] == null)
+                {
                     throw new InvalidOperationException("Server root directory is not specified");
+                }
                 if (!Directory.Exists(configuration["server-root"]))
+                {
                     throw new InvalidOperationException("Server root directory doesn't exist");
+                }
 
                 serverRoot = Path.GetFullPath(configuration["server-root"]);
 
                 if (configuration["server-port"] != null)
                 {
                     if (!int.TryParse(configuration["server-port"], NumberStyles.None, CultureInfo.InvariantCulture, out serverPort))
+                    {
                         throw new InvalidOperationException("Server port value is invalid");
+                    }
                 }
 
                 if (configuration["x509-file"] != null)
+                {
                     x509File = Path.GetFullPath(configuration["x509-file"]);
+                }
                 if (!File.Exists(x509File))
+                {
                     throw new InvalidOperationException("X.509 certificate file doesn't exist");
+                }
                 if (configuration["x509-password"] != null)
+                {
                     x509Password = configuration["x509-password"];
+                }
 
             }
             catch (Exception ex)
@@ -61,7 +73,6 @@ namespace Community.Office.AddinServer
                 var assemblyFile = Path.GetFileName(assembly.Location);
 
                 Console.WriteLine($"Usage: dotnet {assemblyFile} [--server-port <value>] [--server-root <value>] [--x509-file <value>] [--x509-password <value>]");
-
                 Environment.Exit(1);
             }
 
@@ -84,7 +95,9 @@ namespace Community.Office.AddinServer
                     Console.CancelKeyPress += (sender, e) =>
                     {
                         if (!cancellationTokenSource.IsCancellationRequested)
+                        {
                             cancellationTokenSource.Cancel();
+                        }
 
                         resetEvent.Wait();
                         e.Cancel = true;
@@ -112,7 +125,6 @@ namespace Community.Office.AddinServer
             catch (Exception ex)
             {
                 Console.WriteLine($"ERROR: {ex.Message}");
-
                 Environment.Exit(1);
             }
         }

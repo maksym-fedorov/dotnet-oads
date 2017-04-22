@@ -22,4 +22,4 @@ CLI | `settings.json` | Mandatory | Default Value | Purpose
 `--x509-file` | `x509-file` | No | `certificate.pfx` | X.509 certificate file path
 `--x509-password` | `x509-password` | No | Empty String | X.509 certificate password
 
-[![Latest release](https://img.shields.io/github/release/alexanderkozlenko/oads.svg)](https://github.com/alexanderkozlenko/oads/releases) [![Tweet this repository](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Check%20out%20Office%20Add-in%20Dev%20Server%20on%20GitHub&url=https%3A%2F%2Fgithub.com%2Falexanderkozlenko%2Foads)
+[![Latest release](https://img.shields.io/github/release/alexanderkozlenko/office-addin-server.svg)](https://github.com/alexanderkozlenko/office-addin-server/releases) [![Tweet this repository](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Check%20out%20Office%20Add-in%20Dev%20Server%20on%20GitHub&url=https%3A%2F%2Fgithub.com%2Falexanderkozlenko%2Foffice-addin-server)

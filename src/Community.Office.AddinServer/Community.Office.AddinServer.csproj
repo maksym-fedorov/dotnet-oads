@@ -17,11 +17,11 @@
     <EmbeddedResource Include="Assets\*" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel.Https" Version="1.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel.Https" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.2" />
   </ItemGroup>
   <Target Name="CopyCertificate" AfterTargets="Build">
     <Copy SourceFiles="..\..\etc\certificate\certificate.pfx" DestinationFolder="$(OutputPath)" />

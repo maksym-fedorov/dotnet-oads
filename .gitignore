@@ -1,3 +1,5 @@
-﻿/bin/
-.vs/
+﻿.vs/
 .vscode/
+bin/
+obj/
+launchSettings.json

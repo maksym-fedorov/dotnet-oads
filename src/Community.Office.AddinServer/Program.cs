@@ -68,13 +68,16 @@ namespace Community.Office.AddinServer
             }
             catch (Exception ex)
             {
+                Environment.ExitCode = 1;
+
                 Console.WriteLine($"ERROR: {ex.Message}");
                 Console.WriteLine();
 
                 var assemblyFile = Path.GetFileName(assembly.Location);
 
                 Console.WriteLine($"Usage: dotnet {assemblyFile} [--server-port <value>] [--server-root <value>] [--x509-file <value>] [--x509-password <value>]");
-                Environment.Exit(1);
+
+                return;
             }
 
             try

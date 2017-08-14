@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
@@ -81,8 +82,7 @@ namespace Community.Office.AddinServer
                 var certificate = new X509Certificate2(x509File, x509Password);
 
                 var host = new WebHostBuilder()
-                    .UseKestrel(x => x.UseHttps(certificate))
-                    .UseUrls(new UriBuilder("https", "localhost", serverPort).Uri.OriginalString)
+                    .UseKestrel(ko => ko.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(certificate)))
                     .UseStartup<Startup>()
                     .UseWebRoot(serverRoot)
                     .UseContentRoot(serverRoot)
@@ -124,8 +124,8 @@ namespace Community.Office.AddinServer
             }
             catch (Exception ex)
             {
+                Environment.ExitCode = 1;
                 Console.WriteLine($"ERROR: {ex.Message}");
-                Environment.Exit(1);
             }
         }
     }

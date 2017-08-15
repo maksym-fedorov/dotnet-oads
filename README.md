@@ -8,9 +8,8 @@ IIS Express replacement for debugging [Office Add-ins](https://dev.office.com/do
 - Execute the following commands:
 
 ```
-dotnet restore ./src
 dotnet build ./src -c Release
-dotnet ./bin/bin/Release/netcoreapp1.1/oads.dll --server-root <addin-directory>
+dotnet ./src/Community.Office.AddinServer/bin/Release/netcoreapp2.0/oads.dll --server-root <addin-directory>
 ```
 
 ### Available parameters:

@@ -4,7 +4,7 @@ IIS Express replacement for debugging [Office Add-ins](https://dev.office.com/do
 
 ### Run instructions:
 
-- Install [.NET Core for macOS](https://www.microsoft.com/net/core#macos)
+- Install [.NET Core for macOS](https://www.microsoft.com/net/download/macos)
 - Execute the following commands:
 
 ```
@@ -16,8 +16,8 @@ dotnet ./src/Community.Office.AddinServer/bin/Release/netcoreapp2.0/oads.dll --s
 
 CLI | `settings.json` | Mandatory | Default Value | Purpose
 --- | --- | :---: | --- | ---
-`--server-port` | `server-port` | No | `44300` | Server port
 `--server-root` | `server-root` | Yes | | Server root directory
+`--server-port` | `server-port` | No | `44300` | Server port
 `--x509-file` | `x509-file` | No | `certificate.pfx` | X.509 certificate file path
 `--x509-password` | `x509-password` | No | Empty String | X.509 certificate password
 

@@ -1,10 +1,11 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Community.Office.AddinServer.Middleware;
+using Community.Office.AddinServer.Resources;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using Community.Office.AddinServer.Middleware;
-using Community.Office.AddinServer.Resources;
 
 namespace Community.Office.AddinServer
 {
@@ -29,13 +30,14 @@ namespace Community.Office.AddinServer
             app.UseStatusCodePages(CreateStatus);
         }
 
-        private static async Task CreateStatus(StatusCodeContext context)
+        private static Task CreateStatus(StatusCodeContext context)
         {
             context.HttpContext.Response.ContentType = "text/html";
 
-            var message = $"{context.HttpContext.Response.StatusCode} \"{context.HttpContext.Request.Path}{context.HttpContext.Request.QueryString}\"";
+            var message = string.Format(CultureInfo.InvariantCulture, "{0} \"{1}{2}\"",
+                context.HttpContext.Response.StatusCode, context.HttpContext.Request.Path, context.HttpContext.Request.QueryString);
 
-            await context.HttpContext.Response.WriteAsync(_errorPageRegex.Replace(_errorPageContent, message));
+            return context.HttpContext.Response.WriteAsync(_errorPageRegex.Replace(_errorPageContent, message));
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Community.Office.AddinServer
     {
         public static void Main(string[] args)
         {
-            var assembly = typeof(Program).GetTypeInfo().Assembly;
+            var assembly = Assembly.GetExecutingAssembly();
 
             Console.WriteLine($"{assembly.GetCustomAttribute<AssemblyProductAttribute>().Product} {assembly.GetName().Version}");
             Console.WriteLine();
@@ -75,7 +75,7 @@ namespace Community.Office.AddinServer
 
                 var assemblyFile = Path.GetFileName(assembly.Location);
 
-                Console.WriteLine($"Usage: dotnet {assemblyFile} [--server-port <value>] [--server-root <value>] [--x509-file <value>] [--x509-password <value>]");
+                Console.WriteLine($"Usage: dotnet {assemblyFile} --server-root <value> [--server-port <value>] [--x509-file <value>] [--x509-password <value>]");
 
                 return;
             }

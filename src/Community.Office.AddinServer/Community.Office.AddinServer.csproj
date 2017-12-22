@@ -3,6 +3,8 @@
     <Version>1.0.1.1</Version>
     <Product>Office Add-in Development Server</Product>
     <Copyright><![CDATA[© Alexander Kozlenko. All rights reserved.]]></Copyright>
+  </PropertyGroup>
+  <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <AssemblyName>oads</AssemblyName>
@@ -15,7 +17,7 @@
     <DebugType>none</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\*" />
+    <EmbeddedResource Include="Assets/**/*" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.1" />
@@ -27,6 +29,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
   </ItemGroup>
   <Target Name="CopyCertificate" AfterTargets="Build">
-    <Copy SourceFiles="..\..\etc\certificate\certificate.pfx" DestinationFolder="$(OutputPath)" />
+    <Copy SourceFiles="../../etc/certificate/certificate.pfx" DestinationFolder="$(OutputPath)" />
   </Target>
 </Project>

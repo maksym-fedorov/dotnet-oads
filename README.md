@@ -9,7 +9,7 @@ IIS Express replacement for debugging [Office Add-ins](https://dev.office.com/do
 
 ```
 dotnet build ./src -c Release
-dotnet ./src/Community.Office.AddinServer/bin/Release/netcoreapp2.0/oads.dll --server-root <addin-directory>
+dotnet ./bin/bin/oads/Release/netcoreapp2.0/oads.dll --server-root <addin-directory>
 ```
 
 ### Available parameters:

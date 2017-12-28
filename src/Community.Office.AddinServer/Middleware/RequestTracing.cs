@@ -14,7 +14,10 @@ namespace Community.Office.AddinServer.Middleware
 
         private readonly RequestDelegate _next;
 
-        public RequestTracing(RequestDelegate next) => _next = next;
+        public RequestTracing(RequestDelegate next)
+        {
+            _next = next;
+        }
 
         public async Task Invoke(HttpContext context)
         {

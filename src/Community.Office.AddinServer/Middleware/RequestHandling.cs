@@ -10,7 +10,10 @@ namespace Community.Office.AddinServer.Middleware
     {
         private readonly RequestDelegate _next;
 
-        public RequestHandling(RequestDelegate next) => _next = next;
+        public RequestHandling(RequestDelegate next)
+        {
+            _next = next;
+        }
 
         public Task Invoke(HttpContext context)
         {

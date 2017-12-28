@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Community.Office.AddinServer
 {
-    internal static class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {

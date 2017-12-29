@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>1.0.2</Version>
-    <Product>Office Add-in Development Server</Product>
+    <Version>1.0.3</Version>
+    <Product><![CDATA[Office Add-in Development Server]]></Product>
     <Copyright><![CDATA[© Alexander Kozlenko. All rights reserved.]]></Copyright>
   </PropertyGroup>
   <PropertyGroup>

@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Http;
 
 namespace Community.Office.AddinServer.Middleware
 {
-    /// <summary>Add-in request handling middleware.</summary>
-    internal sealed class RequestHandling
+    /// <summary>Add-in request filtering middleware.</summary>
+    internal sealed class RequestFiltering
     {
         private readonly RequestDelegate _next;
 
-        public RequestHandling(RequestDelegate next)
+        public RequestFiltering(RequestDelegate next)
         {
             _next = next;
         }

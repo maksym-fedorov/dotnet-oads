@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Community.Office.AddinServer.Middleware;
 using Community.Office.AddinServer.Resources;
@@ -12,12 +11,9 @@ namespace Community.Office.AddinServer
     /// <summary>Server startup logic.</summary>
     internal sealed class Startup
     {
-        private static readonly string _errorPageContent = EmbeddedResourceManager.GetString("Assets.ErrorPage.html");
-        private static readonly Regex _errorPageRegex = new Regex(@"\{message\}", RegexOptions.Compiled);
-
         public void Configure(IApplicationBuilder app)
         {
-            app.UseMiddleware<RequestHandling>();
+            app.UseMiddleware<RequestFiltering>();
             app.UseMiddleware<RequestTracing>();
 
             var staticFileOptions = new StaticFileOptions
@@ -27,17 +23,19 @@ namespace Community.Office.AddinServer
             };
 
             app.UseStaticFiles(staticFileOptions);
-            app.UseStatusCodePages(CreateStatus);
+            app.UseStatusCodePages(CreateStatusAsync);
         }
 
-        private static Task CreateStatus(StatusCodeContext context)
+        private static Task CreateStatusAsync(StatusCodeContext context)
         {
             context.HttpContext.Response.ContentType = "text/html";
 
             var message = string.Format(CultureInfo.InvariantCulture, "{0} \"{1}{2}\"",
                 context.HttpContext.Response.StatusCode, context.HttpContext.Request.Path, context.HttpContext.Request.QueryString);
 
-            return context.HttpContext.Response.WriteAsync(_errorPageRegex.Replace(_errorPageContent, message));
+            var content = EmbeddedResourceManager.GetString("Assets.ErrorPage.html").Replace("{message}", message);
+
+            return context.HttpContext.Response.WriteAsync(content);
         }
     }
 }

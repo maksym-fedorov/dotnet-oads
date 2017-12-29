@@ -17,7 +17,7 @@ namespace Community.Office.AddinServer
         {
             var assembly = Assembly.GetExecutingAssembly();
 
-            Console.WriteLine($"{assembly.GetCustomAttribute<AssemblyProductAttribute>().Product} {assembly.GetName().Version}");
+            Console.WriteLine($"{assembly.GetCustomAttribute<AssemblyProductAttribute>().Product} {assembly.GetName().Version.ToString(3)}");
             Console.WriteLine();
 
             var serverPort = 44300;

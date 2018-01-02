@@ -13,8 +13,8 @@ namespace Community.Office.AddinServer
     {
         public void Configure(IApplicationBuilder app)
         {
-            app.UseMiddleware<RequestFiltering>();
-            app.UseMiddleware<RequestTracing>();
+            app.UseMiddleware<RequestFilteringMiddleware>();
+            app.UseMiddleware<RequestTracingMiddleware>();
 
             var staticFileOptions = new StaticFileOptions
             {
@@ -31,7 +31,7 @@ namespace Community.Office.AddinServer
             context.HttpContext.Response.ContentType = "text/html";
 
             var message = string.Format(CultureInfo.InvariantCulture, "{0} \"{1}{2}\"",
-                context.HttpContext.Response.StatusCode, context.HttpContext.Request.Path, context.HttpContext.Request.QueryString);
+                context.HttpContext.Request.Method, context.HttpContext.Request.Path, context.HttpContext.Request.QueryString);
 
             var content = EmbeddedResourceManager.GetString("Assets.ErrorPage.html").Replace("{message}", message);
 

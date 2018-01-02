@@ -5,6 +5,7 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
+using Community.Office.AddinServer.Resources;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,13 +18,8 @@ namespace Community.Office.AddinServer
         {
             var assembly = Assembly.GetExecutingAssembly();
 
-            Console.WriteLine($"{assembly.GetCustomAttribute<AssemblyProductAttribute>().Product} {assembly.GetName().Version.ToString(3)}");
+            Console.WriteLine(assembly.GetCustomAttribute<AssemblyProductAttribute>().Product + " " + assembly.GetName().Version.ToString(3));
             Console.WriteLine();
-
-            var serverPort = 44300;
-            var serverRoot = default(string);
-            var x509File = Path.Combine(Path.GetDirectoryName(assembly.Location), "certificate.pfx");
-            var x509Password = string.Empty;
 
             var configurationBuilder = new ConfigurationBuilder()
                 .AddJsonFile(Path.Combine(Path.GetDirectoryName(assembly.Location), "settings.json"), true, false)
@@ -33,55 +29,29 @@ namespace Community.Office.AddinServer
             {
                 var configuration = configurationBuilder.Build();
 
-                if (configuration["server-root"] == null)
+                var serverRootValue = configuration["server-root"];
+                var serverPortValue = configuration["server-port"];
+                var x509FileValue = configuration["x509-file"];
+
+                if (serverRootValue == null)
                 {
-                    throw new InvalidOperationException("Server root directory is not specified");
-                }
-                if (!Directory.Exists(configuration["server-root"]))
-                {
-                    throw new InvalidOperationException("Server root directory doesn't exist");
+                    throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, Strings.GetString("program.undefined_parameter"), "server-root"));
                 }
 
-                serverRoot = Path.GetFullPath(configuration["server-root"]);
+                var serverRoot = Path.GetFullPath(serverRootValue);
+                var serverPort = 44300;
 
-                if (configuration["server-port"] != null)
+                if (serverPortValue != null)
                 {
-                    if (!int.TryParse(configuration["server-port"], NumberStyles.None, CultureInfo.InvariantCulture, out serverPort))
+                    if (!int.TryParse(serverPortValue, NumberStyles.None, CultureInfo.InvariantCulture, out serverPort))
                     {
-                        throw new InvalidOperationException("Server port value is invalid");
+                        throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, Strings.GetString("program.invalid_parameter"), "server-port"));
                     }
                 }
 
-                if (configuration["x509-file"] != null)
-                {
-                    x509File = Path.GetFullPath(configuration["x509-file"]);
-                }
-                if (!File.Exists(x509File))
-                {
-                    throw new InvalidOperationException("X.509 certificate file doesn't exist");
-                }
-                if (configuration["x509-password"] != null)
-                {
-                    x509Password = configuration["x509-password"];
-                }
+                var x509File = x509FileValue != null ? Path.GetFullPath(x509FileValue) : Path.Combine(Path.GetDirectoryName(assembly.Location), "certificate.pfx");
+                var x509Password = configuration["x509-password"] ?? string.Empty;
 
-            }
-            catch (Exception ex)
-            {
-                Environment.ExitCode = 1;
-
-                Console.WriteLine($"ERROR: {ex.Message}");
-                Console.WriteLine();
-
-                var assemblyFile = Path.GetFileName(assembly.Location);
-
-                Console.WriteLine($"Usage: dotnet {assemblyFile} --server-root <value> [--server-port <value>] [--x509-file <value>] [--x509-password <value>]");
-
-                return;
-            }
-
-            try
-            {
                 var certificate = new X509Certificate2(x509File, x509Password);
 
                 var host = new WebHostBuilder()
@@ -110,10 +80,10 @@ namespace Community.Office.AddinServer
                     {
                         host.Start();
 
-                        Console.WriteLine($"Server root: \"{serverRoot}\"");
-                        Console.WriteLine($"Server port: {serverPort}");
-                        Console.WriteLine($"X.509 file: \"{x509File}\"");
-                        Console.WriteLine($"X.509 subject: \"{certificate.Subject}\"");
+                        Console.WriteLine(Strings.GetString("info.server_root"), serverRoot);
+                        Console.WriteLine(Strings.GetString("info.server_port"), serverPort);
+                        Console.WriteLine(Strings.GetString("info.x509_file"), x509File);
+                        Console.WriteLine(Strings.GetString("info.x509_info"), certificate.Subject, certificate.NotBefore, certificate.NotAfter);
                         Console.WriteLine();
 
                         var applicationLifetime = host.Services.GetService<IApplicationLifetime>();
@@ -128,7 +98,10 @@ namespace Community.Office.AddinServer
             catch (Exception ex)
             {
                 Environment.ExitCode = 1;
-                Console.WriteLine($"ERROR: {ex.Message}");
+
+                Console.WriteLine(Strings.GetString("program.error_message"), ex.Message);
+                Console.WriteLine();
+                Console.WriteLine(Strings.GetString("program.usage_message"), Path.GetFileName(assembly.Location));
             }
         }
     }

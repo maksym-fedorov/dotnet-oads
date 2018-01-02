@@ -1,4 +1,4 @@
-## Office Add-in Development Server
+## Office Add-in Debug Server
 
 Local web server based on [.NET Core](https://www.microsoft.com/net/download/macos) for debugging [Microsoft Office Add-ins](https://dev.office.com/docs/add-ins/overview/office-add-ins) on macOS.
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -25,11 +26,11 @@ namespace Community.Office.AddinServer.Resources
 
             using (var bufferStream = new MemoryStream())
             {
-                using (var resourceStream = _assembly.GetManifestResourceStream(FormattableString.Invariant($"{_namespace}.{name}")))
+                using (var resourceStream = _assembly.GetManifestResourceStream(_namespace + "." + name))
                 {
                     if (resourceStream == null)
                     {
-                        throw new InvalidOperationException(FormattableString.Invariant($"The specified resource \"{name}\" is not found"));
+                        throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, Strings.GetString("resource.undefined"), name));
                     }
 
                     resourceStream.CopyTo(bufferStream);

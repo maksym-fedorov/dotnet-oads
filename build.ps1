@@ -3,7 +3,6 @@ param (
 )
 
 function execute {
-    [outputtype([void])]
     param(
         [parameter(mandatory)][ScriptBlock]$command
     )
@@ -18,7 +17,7 @@ function execute {
     }
 }
 
-[String]$sources = "$PSScriptRoot/src";
+[String]$sources = "$PSScriptRoot/src/";
 
-execute { dotnet clean "$sources/" -c $configuration /nologo };
-execute { dotnet build "$sources/" -c $configuration };
+execute { dotnet clean "$sources" -c $configuration };
+execute { dotnet build "$sources" -c $configuration };

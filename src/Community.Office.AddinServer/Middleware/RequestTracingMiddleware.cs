@@ -9,8 +9,7 @@ namespace Community.Office.AddinServer.Middleware
     /// <summary>Add-in request tracking middleware.</summary>
     internal sealed class RequestTracingMiddleware
     {
-        private static readonly ConsoleColor _foregroundColor = Console.ForegroundColor;
-        private static readonly object _syncRoot = new object();
+        private static readonly object _consoleSyncRoot = new object();
 
         private readonly RequestDelegate _next;
 
@@ -26,17 +25,25 @@ namespace Community.Office.AddinServer.Middleware
             var message = string.Format(CultureInfo.InvariantCulture, "{0:O} {1} {2} \"{3}{4}\"",
                 DateTime.Now, context.Response.StatusCode, context.Request.Method, context.Request.Path, context.Request.QueryString);
 
-            lock (_syncRoot)
+            WriteLine(message, context.Response.StatusCode < (int)HttpStatusCode.BadRequest ? ConsoleColor.Red : (ConsoleColor?)null);
+        }
+
+        private static void WriteLine(string value, ConsoleColor? color = null)
+        {
+            lock (_consoleSyncRoot)
             {
-                if (context.Response.StatusCode < (int)HttpStatusCode.BadRequest)
+                var foregroundColor = Console.ForegroundColor;
+
+                if (color.HasValue && (color.Value != foregroundColor))
                 {
-                    Console.WriteLine(message);
+                    Console.ForegroundColor = color.Value;
                 }
-                else
+
+                Console.WriteLine(value);
+
+                if (color.HasValue && (color.Value != foregroundColor))
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(message);
-                    Console.ForegroundColor = _foregroundColor;
+                    Console.ForegroundColor = foregroundColor;
                 }
             }
         }

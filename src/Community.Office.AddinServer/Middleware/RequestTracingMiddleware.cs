@@ -25,7 +25,7 @@ namespace Community.Office.AddinServer.Middleware
             var message = string.Format(CultureInfo.InvariantCulture, "{0:O} {1} {2} \"{3}{4}\"",
                 DateTime.Now, context.Response.StatusCode, context.Request.Method, context.Request.Path, context.Request.QueryString);
 
-            WriteLine(message, context.Response.StatusCode < (int)HttpStatusCode.BadRequest ? ConsoleColor.Red : (ConsoleColor?)null);
+            WriteLine(message, context.Response.StatusCode >= (int)HttpStatusCode.BadRequest ? ConsoleColor.Red : (ConsoleColor?)null);
         }
 
         private static void WriteLine(string value, ConsoleColor? color = null)

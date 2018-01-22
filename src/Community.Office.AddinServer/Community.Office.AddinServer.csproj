@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
     <Product><![CDATA[Office Add-in Debug Server]]></Product>
     <Copyright><![CDATA[© Alexander Kozlenko. All rights reserved.]]></Copyright>
   </PropertyGroup>
@@ -8,7 +8,6 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <AssemblyName>oads</AssemblyName>
-    <NoWin32Manifest>True</NoWin32Manifest>
     <OutputPath>$(RepositoryPath)/bin/bin/$(AssemblyName)/$(Configuration)/</OutputPath>
     <ApplicationIcon />
     <StartupObject />

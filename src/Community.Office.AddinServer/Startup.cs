@@ -1,17 +1,20 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using Community.Office.AddinServer.Middleware;
 using Community.Office.AddinServer.Resources;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Community.Office.AddinServer
 {
     /// <summary>Server startup logic.</summary>
-    internal sealed class Startup
+    internal sealed class Startup : IStartup
     {
-        public void Configure(IApplicationBuilder app)
+        void IStartup.Configure(IApplicationBuilder app)
         {
             app.UseMiddleware<RequestFilteringMiddleware>();
             app.UseMiddleware<RequestTracingMiddleware>();
@@ -24,6 +27,14 @@ namespace Community.Office.AddinServer
 
             app.UseStaticFiles(staticFileOptions);
             app.UseStatusCodePages(CreateStatusAsync);
+        }
+
+        IServiceProvider IStartup.ConfigureServices(IServiceCollection services)
+        {
+            services.AddSingleton<RequestFilteringMiddleware, RequestFilteringMiddleware>();
+            services.AddSingleton<RequestTracingMiddleware, RequestTracingMiddleware>();
+
+            return services.BuildServiceProvider();
         }
 
         private static Task CreateStatusAsync(StatusCodeContext context)

@@ -6,16 +6,9 @@ using Microsoft.AspNetCore.Http;
 namespace Community.Office.AddinServer.Middleware
 {
     /// <summary>Add-in request filtering middleware.</summary>
-    internal sealed class RequestFilteringMiddleware
+    internal sealed class RequestFilteringMiddleware : IMiddleware
     {
-        private readonly RequestDelegate _next;
-
-        public RequestFilteringMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
-        public Task Invoke(HttpContext context)
+        Task IMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
         {
             if (string.Compare(context.Request.Method, HttpMethods.Get, StringComparison.OrdinalIgnoreCase) != 0)
             {
@@ -24,7 +17,7 @@ namespace Community.Office.AddinServer.Middleware
                 return Task.CompletedTask;
             }
 
-            return _next(context);
+            return next(context);
         }
     }
 }

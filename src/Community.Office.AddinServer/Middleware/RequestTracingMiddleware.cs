@@ -7,20 +7,13 @@ using Microsoft.AspNetCore.Http;
 namespace Community.Office.AddinServer.Middleware
 {
     /// <summary>Add-in request tracking middleware.</summary>
-    internal sealed class RequestTracingMiddleware
+    internal sealed class RequestTracingMiddleware : IMiddleware
     {
         private static readonly object _consoleSyncRoot = new object();
 
-        private readonly RequestDelegate _next;
-
-        public RequestTracingMiddleware(RequestDelegate next)
+        async Task IMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            _next = next;
-        }
-
-        public async Task Invoke(HttpContext context)
-        {
-            await _next(context).ConfigureAwait(false);
+            await next(context).ConfigureAwait(false);
 
             var message = string.Format(CultureInfo.InvariantCulture, "{0:O} {1} {2} \"{3}{4}\"",
                 DateTime.Now, context.Response.StatusCode, context.Request.Method, context.Request.Path, context.Request.QueryString);

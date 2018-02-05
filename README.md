@@ -1,6 +1,6 @@
 ## Office Add-in Debug Server
 
-Local web server for debugging [Microsoft Office Add-ins](https://dev.office.com/docs/add-ins/overview/office-add-ins) on macOS. The server is based on [.NET Core 2.0](https://www.microsoft.com/net/download/macos) and provides access to static files via GET requests. Run parameters can be provided via command-line interface or via `settings.json` file located in the same directory with the server assembly.
+Local web server for debugging [Microsoft Office Add-ins](https://dev.office.com/docs/add-ins/overview/office-add-ins) on macOS. The server is based on [.NET Core 2.0](https://www.microsoft.com/net/download/macos) and provides access to static add-in files. Run parameters can be provided via command-line interface or via `settings.json` file located in the same directory with the server assembly.
 
 ### Supported parameters:
 
@@ -27,6 +27,14 @@ dotnet oads.dll --server-root <value> [--server-port <value>] [--x509-file <valu
     "x509-password": "<value>"
 }
 ```
+
+### Specifics
+
+- The certificate which is going to be used for running an add-in server must be added to the list of trusted OS certificates.
+
+### Limitations
+
+- Only `GET` requests are supported.
 
 ### Output sample:
 

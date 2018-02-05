@@ -53,11 +53,14 @@ namespace Community.Office.AddinServer
                 var x509File = x509FileValue != null ? Path.GetFullPath(x509FileValue) : Path.Combine(Path.GetDirectoryName(assembly.Location), "certificate.pfx");
                 var x509Password = configuration["x509-password"] ?? string.Empty;
 
+                var logFileValue = configuration["log-file"];
+                var logFile = logFileValue != null ? Path.GetFullPath(logFileValue) : null;
+
                 var certificate = new X509Certificate2(x509File, x509Password);
 
                 var host = new WebHostBuilder()
                     .UseStartup<Startup>()
-                    .ConfigureServices(sc => sc.Configure<LoggingOptions>(lo => lo.File = configuration["log-file"]))
+                    .ConfigureServices(sc => sc.Configure<LoggingOptions>(lo => lo.File = logFile))
                     .UseKestrel(kso => kso.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(certificate)))
                     .UseWebRoot(serverRoot)
                     .UseContentRoot(serverRoot)
@@ -86,6 +89,12 @@ namespace Community.Office.AddinServer
                         Console.WriteLine(Strings.GetString("info.server_port"), serverPort);
                         Console.WriteLine(Strings.GetString("info.x509_file"), x509File);
                         Console.WriteLine(Strings.GetString("info.x509_info"), certificate.Subject, certificate.NotBefore, certificate.NotAfter);
+
+                        if (logFile != null)
+                        {
+                            Console.WriteLine(Strings.GetString("info.log_file"), logFile);
+                        }
+
                         Console.WriteLine();
 
                         var applicationLifetime = host.Services.GetService<IApplicationLifetime>();

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Community.Office.AddinServer.Middleware
 {
-    /// <summary>Add-in request filtering middleware.</summary>
+    /// <summary>Represents add-in request filtering middleware.</summary>
     internal sealed class RequestFilteringMiddleware : IMiddleware
     {
         Task IMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)

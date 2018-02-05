@@ -31,6 +31,7 @@ namespace Community.Office.AddinServer
 
         IServiceProvider IStartup.ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
             services.AddSingleton<RequestFilteringMiddleware, RequestFilteringMiddleware>();
             services.AddSingleton<RequestTracingMiddleware, RequestTracingMiddleware>();
 

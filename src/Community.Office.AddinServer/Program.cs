@@ -5,6 +5,7 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
+using Community.Office.AddinServer.Data;
 using Community.Office.AddinServer.Resources;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -55,8 +56,9 @@ namespace Community.Office.AddinServer
                 var certificate = new X509Certificate2(x509File, x509Password);
 
                 var host = new WebHostBuilder()
-                    .UseKestrel(ko => ko.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(certificate)))
                     .UseStartup<Startup>()
+                    .ConfigureServices(sc => sc.Configure<LoggingOptions>(lo => lo.File = configuration["log-file"]))
+                    .UseKestrel(kso => kso.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(certificate)))
                     .UseWebRoot(serverRoot)
                     .UseContentRoot(serverRoot)
                     .Build();

@@ -1,15 +1,31 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
+using Community.Office.AddinServer.Data;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 
 namespace Community.Office.AddinServer.Middleware
 {
-    /// <summary>Add-in request tracking middleware.</summary>
+    /// <summary>Represents add-in request tracking middleware.</summary>
     internal sealed class RequestTracingMiddleware : IMiddleware
     {
         private static readonly object _consoleSyncRoot = new object();
+
+        private readonly LoggingOptions _options;
+
+        public RequestTracingMiddleware(IOptions<LoggingOptions> options)
+        {
+            if (options == null)
+            {
+                throw new ArgumentNullException(nameof(options));
+            }
+
+            _options = options.Value;
+        }
 
         async Task IMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
         {
@@ -19,6 +35,12 @@ namespace Community.Office.AddinServer.Middleware
                 DateTime.Now, context.Response.StatusCode, context.Request.Method, context.Request.Path, context.Request.QueryString);
 
             WriteLine(message, context.Response.StatusCode >= (int)HttpStatusCode.BadRequest ? ConsoleColor.Red : (ConsoleColor?)null);
+
+            if (_options.File != null)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(_options.File));
+                File.AppendAllText(_options.File, message + Environment.NewLine, Encoding.UTF8);
+            }
         }
 
         private static void WriteLine(string value, ConsoleColor? color = null)

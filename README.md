@@ -10,11 +10,12 @@ CLI | File | Mandatory | Default Value | Purpose
 `--server-port` | `server-port` | No | `44300` | Server port
 `--x509-file` | `x509-file` | No | `certificate.pfx` | X.509 certificate file path
 `--x509-password` | `x509-password` | No | | X.509 certificate password
+`--log-file` | `log-file` | No | | Log file path
 
 ### Run instruction (CLI):
 
 ```
-dotnet oads.dll --server-root <value> [--server-port <value>] [--x509-file <value>] [--x509-password <value>]
+dotnet oads.dll --server-root <value> [--server-port <value>] [--x509-file <value>] [--x509-password <value>] [--log-file]
 ```
 
 ### Settings file structure:
@@ -24,7 +25,8 @@ dotnet oads.dll --server-root <value> [--server-port <value>] [--x509-file <valu
     "server-root": "<value>",
     "server-port": <value>,
     "x509-file": "<value>",
-    "x509-password": "<value>"
+    "x509-password": "<value>",
+    "log-file": "<value>"
 }
 ```
 

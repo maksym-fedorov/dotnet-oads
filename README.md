@@ -36,6 +36,7 @@ dotnet oads.dll \
 ### Specifics
 
 - The certificate which is going to be used for running an add-in server must be added to the list of trusted OS certificates.
+- Keep-alive timeout is 1 hour.
 
 ### Limitations
 

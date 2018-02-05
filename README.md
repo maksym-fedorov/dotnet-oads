@@ -15,7 +15,10 @@ CLI | File | Mandatory | Default Value | Purpose
 ### Run instruction (CLI):
 
 ```
-dotnet oads.dll --server-root <value> [--server-port <value>] [--x509-file <value>] [--x509-password <value>] [--log-file]
+dotnet oads.dll \
+    --server-root <value> [--server-port <value>] \
+    [--x509-file <value>] [--x509-password <value>] \
+    [--log-file <value>]
 ```
 
 ### Settings file structure:

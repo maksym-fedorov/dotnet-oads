@@ -8,6 +8,7 @@ using System.Threading;
 using Community.Office.AddinServer.Data;
 using Community.Office.AddinServer.Resources;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -58,10 +59,21 @@ namespace Community.Office.AddinServer
 
                 var certificate = new X509Certificate2(x509File, x509Password);
 
+                void ConfigureServices(IServiceCollection serviceCollection)
+                {
+                    serviceCollection.Configure<LoggingOptions>(lo => lo.File = logFile);
+                }
+
+                void ConfigureKestrel(KestrelServerOptions kestrelServerOptions)
+                {
+                    kestrelServerOptions.Limits.KeepAliveTimeout = TimeSpan.FromHours(1);
+                    kestrelServerOptions.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(certificate));
+                }
+
                 var host = new WebHostBuilder()
                     .UseStartup<Startup>()
-                    .ConfigureServices(sc => sc.Configure<LoggingOptions>(lo => lo.File = logFile))
-                    .UseKestrel(kso => kso.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(certificate)))
+                    .ConfigureServices(ConfigureServices)
+                    .UseKestrel(ConfigureKestrel)
                     .UseWebRoot(serverRoot)
                     .UseContentRoot(serverRoot)
                     .Build();

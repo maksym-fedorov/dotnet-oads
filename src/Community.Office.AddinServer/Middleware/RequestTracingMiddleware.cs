@@ -39,7 +39,14 @@ namespace Community.Office.AddinServer.Middleware
             if (_options.File != null)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(_options.File));
-                File.AppendAllText(_options.File, message + Environment.NewLine, Encoding.UTF8);
+
+                using (var stream = new FileStream(_options.File, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read))
+                {
+                    using (var writer = new StreamWriter(stream, Encoding.UTF8))
+                    {
+                        writer.WriteLine(message);
+                    }
+                }
             }
         }
 

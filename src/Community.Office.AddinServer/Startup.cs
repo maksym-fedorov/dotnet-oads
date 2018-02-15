@@ -14,10 +14,12 @@ namespace Community.Office.AddinServer
     /// <summary>Server startup logic.</summary>
     internal sealed class Startup : IStartup
     {
-        void IStartup.Configure(IApplicationBuilder app)
+        private static readonly string _errorPageTemplate = EmbeddedResourceManager.GetString("Assets.ErrorPage.html");
+
+        void IStartup.Configure(IApplicationBuilder builder)
         {
-            app.UseMiddleware<RequestFilteringMiddleware>();
-            app.UseMiddleware<RequestTracingMiddleware>();
+            builder.UseMiddleware<RequestFilteringMiddleware>();
+            builder.UseMiddleware<RequestTracingMiddleware>();
 
             var staticFileOptions = new StaticFileOptions
             {
@@ -25,8 +27,8 @@ namespace Community.Office.AddinServer
                 DefaultContentType = "application/octet-stream"
             };
 
-            app.UseStaticFiles(staticFileOptions);
-            app.UseStatusCodePages(CreateStatusAsync);
+            builder.UseStaticFiles(staticFileOptions);
+            builder.UseStatusCodePages(CreateStatusAsync);
         }
 
         IServiceProvider IStartup.ConfigureServices(IServiceCollection services)
@@ -40,14 +42,14 @@ namespace Community.Office.AddinServer
 
         private static Task CreateStatusAsync(StatusCodeContext context)
         {
-            context.HttpContext.Response.ContentType = "text/html";
-
             var message = string.Format(CultureInfo.InvariantCulture, "{0} \"{1}{2}\"",
                 context.HttpContext.Request.Method, context.HttpContext.Request.Path, context.HttpContext.Request.QueryString);
 
-            var content = EmbeddedResourceManager.GetString("Assets.ErrorPage.html").Replace("{message}", message);
+            var content = _errorPageTemplate.Replace("{message}", message);
 
-            return context.HttpContext.Response.WriteAsync(content);
+            context.HttpContext.Response.ContentType = "text/html";
+
+            return context.HttpContext.Response.WriteAsync(content, context.HttpContext.RequestAborted);
         }
     }
 }

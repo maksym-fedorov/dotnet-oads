@@ -17,7 +17,7 @@ namespace Community.Office.AddinServer.Middleware
                 return Task.CompletedTask;
             }
 
-            return next(context);
+            return next.Invoke(context);
         }
     }
 }

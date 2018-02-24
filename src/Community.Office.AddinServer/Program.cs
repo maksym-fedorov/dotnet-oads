@@ -16,8 +16,13 @@ namespace Community.Office.AddinServer
 {
     public static class Program
     {
+        private static readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private static readonly ManualResetEventSlim _resetEvent = new ManualResetEventSlim();
+
         public static void Main(string[] args)
         {
+            Console.CancelKeyPress += OnCancelKeyPress;
+
             var assembly = Assembly.GetExecutingAssembly();
 
             Console.WriteLine(assembly.GetCustomAttribute<AssemblyProductAttribute>().Product + " " + assembly.GetName().Version.ToString(3));
@@ -53,17 +58,11 @@ namespace Community.Office.AddinServer
 
                 var x509File = x509FileValue != null ? Path.GetFullPath(x509FileValue) : Path.Combine(Path.GetDirectoryName(assembly.Location), "certificate.pfx");
                 var x509Password = configuration["x509-password"] ?? string.Empty;
-
                 var logFileValue = configuration["log-file"];
                 var logFile = logFileValue != null ? Path.GetFullPath(logFileValue) : null;
-
                 var certificate = new X509Certificate2(x509File, x509Password);
 
-                void ConfigureServices(IServiceCollection services)
-                {
-                    services.Configure<LoggingOptions>(lo => lo.File = logFile);
-                }
-                void ConfigureKestrel(KestrelServerOptions options)
+                void ConfigureKestrelAction(KestrelServerOptions options)
                 {
                     options.Limits.KeepAliveTimeout = TimeSpan.FromHours(1);
                     options.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(certificate));
@@ -72,51 +71,36 @@ namespace Community.Office.AddinServer
 
                 var host = new WebHostBuilder()
                     .UseStartup<Startup>()
-                    .ConfigureServices(ConfigureServices)
-                    .UseKestrel(ConfigureKestrel)
+                    .ConfigureServices(sc => sc.Configure<LoggingOptions>(lo => lo.File = logFile))
+                    .UseKestrel(ConfigureKestrelAction)
                     .UseWebRoot(serverRoot)
                     .UseContentRoot(serverRoot)
                     .Build();
 
-                var resetEvent = new ManualResetEventSlim(false);
-
-                using (var cancellationTokenSource = new CancellationTokenSource())
+                using (host)
                 {
-                    Console.CancelKeyPress += (sender, e) =>
+                    host.Start();
+
+                    Console.WriteLine(Strings.GetString("info.server_root"), serverRoot);
+                    Console.WriteLine(Strings.GetString("info.server_port"), serverPort);
+                    Console.WriteLine(Strings.GetString("info.x509_file"), x509File);
+                    Console.WriteLine(Strings.GetString("info.x509_info"), certificate.Subject, certificate.NotBefore, certificate.NotAfter);
+
+                    if (logFile != null)
                     {
-                        if (!cancellationTokenSource.IsCancellationRequested)
-                        {
-                            cancellationTokenSource.Cancel();
-                        }
-
-                        resetEvent.Wait();
-                        e.Cancel = true;
-                    };
-
-                    using (host)
-                    {
-                        host.Start();
-
-                        Console.WriteLine(Strings.GetString("info.server_root"), serverRoot);
-                        Console.WriteLine(Strings.GetString("info.server_port"), serverPort);
-                        Console.WriteLine(Strings.GetString("info.x509_file"), x509File);
-                        Console.WriteLine(Strings.GetString("info.x509_info"), certificate.Subject, certificate.NotBefore, certificate.NotAfter);
-
-                        if (logFile != null)
-                        {
-                            Console.WriteLine(Strings.GetString("info.log_file"), logFile);
-                        }
-
-                        Console.WriteLine();
-
-                        var applicationLifetime = host.Services.GetService<IApplicationLifetime>();
-
-                        cancellationTokenSource.Token.Register(state => ((IApplicationLifetime)state).StopApplication(), applicationLifetime);
-                        applicationLifetime.ApplicationStopping.WaitHandle.WaitOne();
+                        Console.WriteLine(Strings.GetString("info.log_file"), logFile);
                     }
 
-                    resetEvent.Set();
+                    Console.WriteLine();
+
+                    var applicationLifetime = host.Services.GetRequiredService<IApplicationLifetime>();
+
+                    _cancellationTokenSource.Token.Register(state => ((IApplicationLifetime)state).StopApplication(), applicationLifetime);
+
+                    applicationLifetime.ApplicationStopping.WaitHandle.WaitOne();
                 }
+
+                _resetEvent.Set();
             }
             catch (Exception ex)
             {
@@ -126,6 +110,18 @@ namespace Community.Office.AddinServer
                 Console.WriteLine();
                 Console.WriteLine(Strings.GetString("program.usage_message"), Path.GetFileName(assembly.Location));
             }
+        }
+
+        private static void OnCancelKeyPress(object sender, ConsoleCancelEventArgs e)
+        {
+            if (!_cancellationTokenSource.IsCancellationRequested)
+            {
+                _cancellationTokenSource.Cancel();
+            }
+
+            _resetEvent.Wait();
+
+            e.Cancel = true;
         }
     }
 }

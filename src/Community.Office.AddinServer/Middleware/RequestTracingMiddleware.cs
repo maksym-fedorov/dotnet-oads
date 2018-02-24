@@ -29,7 +29,7 @@ namespace Community.Office.AddinServer.Middleware
 
         async Task IMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            await next.Invoke(context).ConfigureAwait(false);
+            await next.Invoke(context);
 
             var message = string.Format(CultureInfo.InvariantCulture, "{0:O} {1} {2} \"{3}{4}\"",
                 DateTime.Now, context.Response.StatusCode, context.Request.Method, context.Request.Path, context.Request.QueryString);

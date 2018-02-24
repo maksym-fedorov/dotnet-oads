@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 
 namespace Community.Office.AddinServer.Middleware
 {
@@ -10,7 +11,7 @@ namespace Community.Office.AddinServer.Middleware
     {
         Task IMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            if (string.Compare(context.Request.Method, HttpMethods.Get, StringComparison.OrdinalIgnoreCase) != 0)
+            if (!StringSegment.Equals(context.Request.Method, HttpMethods.Get, StringComparison.OrdinalIgnoreCase))
             {
                 context.Response.StatusCode = (int)HttpStatusCode.MethodNotAllowed;
 

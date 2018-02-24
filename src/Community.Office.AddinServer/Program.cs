@@ -59,15 +59,15 @@ namespace Community.Office.AddinServer
 
                 var certificate = new X509Certificate2(x509File, x509Password);
 
-                void ConfigureServices(IServiceCollection serviceCollection)
+                void ConfigureServices(IServiceCollection services)
                 {
-                    serviceCollection.Configure<LoggingOptions>(lo => lo.File = logFile);
+                    services.Configure<LoggingOptions>(lo => lo.File = logFile);
                 }
-
-                void ConfigureKestrel(KestrelServerOptions kestrelServerOptions)
+                void ConfigureKestrel(KestrelServerOptions options)
                 {
-                    kestrelServerOptions.Limits.KeepAliveTimeout = TimeSpan.FromHours(1);
-                    kestrelServerOptions.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(certificate));
+                    options.Limits.KeepAliveTimeout = TimeSpan.FromHours(1);
+                    options.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(certificate));
+                    options.AddServerHeader = false;
                 }
 
                 var host = new WebHostBuilder()

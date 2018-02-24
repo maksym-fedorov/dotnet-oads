@@ -4,7 +4,7 @@
     internal sealed class LoggingOptions
     {
         /// <summary>Gets or sets logging file path.</summary>
-        public string File
+        public string FilePath
         {
             get;
             set;

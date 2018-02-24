@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Community.Office.AddinServer.Data;
@@ -15,7 +14,8 @@ namespace Community.Office.AddinServer.Middleware
     {
         private static readonly object _consoleSyncRoot = new object();
 
-        private readonly LoggingOptions _options;
+        private readonly string _filePath;
+        private readonly string _folderPath;
 
         public RequestTracingMiddleware(IOptions<LoggingOptions> options)
         {
@@ -24,7 +24,12 @@ namespace Community.Office.AddinServer.Middleware
                 throw new ArgumentNullException(nameof(options));
             }
 
-            _options = options.Value;
+            _filePath = options.Value.FilePath;
+
+            if (_filePath != null)
+            {
+                _folderPath = Path.GetDirectoryName(_filePath);
+            }
         }
 
         async Task IMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
@@ -34,17 +39,17 @@ namespace Community.Office.AddinServer.Middleware
             var message = string.Format(CultureInfo.InvariantCulture, "{0:O} {1} {2} \"{3}{4}\"",
                 DateTime.Now, context.Response.StatusCode, context.Request.Method, context.Request.Path, context.Request.QueryString);
 
-            WriteLine(message, context.Response.StatusCode >= (int)HttpStatusCode.BadRequest ? ConsoleColor.Red : (ConsoleColor?)null);
+            WriteLine(message, context.Response.StatusCode >= StatusCodes.Status400BadRequest ? ConsoleColor.Red : (ConsoleColor?)null);
 
-            if (_options.File != null)
+            if (_filePath != null)
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(_options.File));
+                Directory.CreateDirectory(_folderPath);
 
-                using (var stream = new FileStream(_options.File, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read))
+                using (var fileStream = new FileStream(_filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read))
                 {
-                    using (var writer = new StreamWriter(stream, Encoding.UTF8))
+                    using (var streamWriter = new StreamWriter(fileStream, Encoding.UTF8))
                     {
-                        writer.WriteLine(message);
+                        streamWriter.WriteLine(message);
                     }
                 }
             }

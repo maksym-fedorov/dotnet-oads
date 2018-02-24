@@ -71,7 +71,7 @@ namespace Community.Office.AddinServer
 
                 var host = new WebHostBuilder()
                     .UseStartup<Startup>()
-                    .ConfigureServices(sc => sc.Configure<LoggingOptions>(lo => lo.File = logFile))
+                    .ConfigureServices(sc => sc.Configure<LoggingOptions>(lo => lo.FilePath = logFile))
                     .UseKestrel(ConfigureKestrelAction)
                     .UseWebRoot(serverRoot)
                     .UseContentRoot(serverRoot)

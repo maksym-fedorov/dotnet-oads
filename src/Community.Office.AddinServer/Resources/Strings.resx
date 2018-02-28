@@ -132,6 +132,9 @@
   <data name="info.x509_info" xml:space="preserve">
     <value>X.509 info: "{0}" ({1} - {2})</value>
   </data>
+  <data name="program.assembly_info" xml:space="preserve">
+    <value>{0} version {1}</value>
+  </data>
   <data name="program.error_message" xml:space="preserve">
     <value>ERROR: {0}</value>
   </data>

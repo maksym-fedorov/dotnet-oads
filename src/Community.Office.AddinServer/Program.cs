@@ -25,7 +25,8 @@ namespace Community.Office.AddinServer
 
             var assembly = Assembly.GetExecutingAssembly();
 
-            Console.WriteLine(assembly.GetCustomAttribute<AssemblyProductAttribute>().Product + " " + assembly.GetName().Version.ToString(3));
+            Console.WriteLine(Strings.GetString("program.assembly_info"), assembly.GetCustomAttribute<AssemblyProductAttribute>().Product, assembly.GetName().Version.ToString(3));
+            Console.WriteLine(assembly.GetCustomAttribute<AssemblyCopyrightAttribute>().Copyright);
             Console.WriteLine();
 
             var configurationBuilder = new ConfigurationBuilder()
@@ -106,7 +107,11 @@ namespace Community.Office.AddinServer
             {
                 Environment.ExitCode = 1;
 
-                Console.WriteLine(Strings.GetString("program.error_message"), ex.Message);
+                var foregroundColor = Console.ForegroundColor;
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Error.WriteLine(Strings.GetString("program.error_message"), ex.Message);
+                Console.ForegroundColor = foregroundColor;
                 Console.WriteLine();
                 Console.WriteLine(Strings.GetString("program.usage_message"), Path.GetFileName(assembly.Location));
             }

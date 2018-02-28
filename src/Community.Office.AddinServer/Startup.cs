@@ -11,10 +11,15 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Community.Office.AddinServer
 {
-    /// <summary>Server startup logic.</summary>
+    /// <summary>Represents server startup logic.</summary>
     internal sealed class Startup : IStartup
     {
         private static readonly string _errorPageTemplate = EmbeddedResourceManager.GetString("Assets.ErrorPage.html");
+
+        /// <summary>Initializes a new instance of the <see cref="Startup" /> class.</summary>
+        public Startup()
+        {
+        }
 
         void IStartup.Configure(IApplicationBuilder builder)
         {

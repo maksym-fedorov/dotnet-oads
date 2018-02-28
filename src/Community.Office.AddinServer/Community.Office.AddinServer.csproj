@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Version>1.0.10</Version>
     <Product><![CDATA[Office Add-in Debug Server]]></Product>
-    <Copyright><![CDATA[© Alexander Kozlenko. All rights reserved.]]></Copyright>
+    <Copyright><![CDATA[(c) Alexander Kozlenko. All rights reserved.]]></Copyright>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>Exe</OutputType>

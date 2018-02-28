@@ -17,6 +17,9 @@ namespace Community.Office.AddinServer.Middleware
         private readonly string _filePath;
         private readonly string _folderPath;
 
+        /// <summary>Initializes a new instance of the <see cref="RequestTracingMiddleware" /> class.</summary>
+        /// <param name="options">The logging options.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="options" /> is <see langword="null" />.</exception>
         public RequestTracingMiddleware(IOptions<LoggingOptions> options)
         {
             if (options == null)

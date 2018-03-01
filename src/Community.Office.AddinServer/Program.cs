@@ -82,16 +82,9 @@ namespace Community.Office.AddinServer
                 {
                     host.Start();
 
-                    Console.WriteLine(Strings.GetString("info.server_root"), serverRoot);
-                    Console.WriteLine(Strings.GetString("info.server_port"), serverPort);
-                    Console.WriteLine(Strings.GetString("info.x509_file"), x509File);
-                    Console.WriteLine(Strings.GetString("info.x509_info"), certificate.Subject, certificate.NotBefore, certificate.NotAfter);
+                    var serverPortToken = serverPort == 80 ? string.Empty : string.Format(CultureInfo.InvariantCulture, ":{0}", serverPort);
 
-                    if (logFile != null)
-                    {
-                        Console.WriteLine(Strings.GetString("info.log_file"), logFile);
-                    }
-
+                    Console.WriteLine(Strings.GetString("server.address_info"), serverPortToken);
                     Console.WriteLine();
 
                     var applicationLifetime = host.Services.GetRequiredService<IApplicationLifetime>();

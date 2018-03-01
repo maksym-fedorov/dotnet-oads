@@ -6,13 +6,13 @@ Local web server for debugging [Microsoft Office Add-ins](https://dev.office.com
 
 CLI | File | Mandatory | Default Value | Purpose
 --- | --- | :---: | --- | ---
-`--server-root` | `server-root` | Yes | | Server root directory
-`--server-port` | `server-port` | No | `44300` | Server port
-`--x509-file` | `x509-file` | No | `certificate.pfx` | X.509 certificate file path
-`--x509-password` | `x509-password` | No | | X.509 certificate password
-`--log-file` | `log-file` | No | | Log file path
+`--server-root` | `server-root` | Yes | | The server root directory
+`--server-port` | `server-port` | No | `44300` | The server port
+`--x509-file` | `x509-file` | No | `certificate.pfx` | The certificate file path
+`--x509-password` | `x509-password` | No | | The certificate password
+`--log-file` | `log-file` | No | | The log file path
 
-### Run instruction (CLI):
+### Run instruction (CLI)
 
 ```
 dotnet oads.dll \
@@ -21,7 +21,7 @@ dotnet oads.dll \
     [--log-file <value>]
 ```
 
-### Settings file structure:
+### Settings file structure
 
 ```json
 {
@@ -36,21 +36,18 @@ dotnet oads.dll \
 ### Specifics
 
 - The certificate which is going to be used for running an add-in server must be added to the list of trusted OS certificates.
-- Keep-alive timeout is 1 hour.
+- Connection keep-alive timeout is 60 minutes.
 
 ### Limitations
 
 - Only `GET` requests are supported.
 
-### Output sample:
+### Examples
 
 ```
-Office Add-in Debug Server 1.0.0
+Office Add-in Debug Server version 1.0.0
 
-Server root: "/Users/user/addin/"
-Server port: 44300
-X.509 file: "/Users/user/oads/certificate.pfx"
-X.509 info: "OU=OFFICE_ADDIN_DEV_SERVER, CN=localhost" (01/01/2018 01:01:01 - 01/01/2020 01:01:01)
+Listening https://localhost:44300/ for incoming connections...
 
 2018-01-02T03:04:05.0123456+01:00 404 GET "/favicon.ico"
 2018-01-02T03:04:05.0123457+01:00 200 GET "/index.html"

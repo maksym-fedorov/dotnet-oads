@@ -117,26 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="info.log_file" xml:space="preserve">
-    <value>Log file: "{0}"</value>
-  </data>
-  <data name="info.server_port" xml:space="preserve">
-    <value>Server port: {0}</value>
-  </data>
-  <data name="info.server_root" xml:space="preserve">
-    <value>Server root: "{0}"</value>
-  </data>
-  <data name="info.x509_file" xml:space="preserve">
-    <value>X.509 file: "{0}"</value>
-  </data>
-  <data name="info.x509_info" xml:space="preserve">
-    <value>X.509 info: "{0}" ({1} - {2})</value>
-  </data>
   <data name="program.assembly_info" xml:space="preserve">
     <value>{0} version {1}</value>
   </data>
   <data name="program.error_message" xml:space="preserve">
-    <value>ERROR: {0}</value>
+    <value>Error: {0}</value>
   </data>
   <data name="program.invalid_parameter" xml:space="preserve">
     <value>The "{0}" parameter is invalid</value>
@@ -149,5 +134,8 @@
   </data>
   <data name="resource.undefined" xml:space="preserve">
     <value>The specified resource "{0}" is not found</value>
+  </data>
+  <data name="server.address_info" xml:space="preserve">
+    <value>Listening https://localhost{0}/ for incoming connections...</value>
   </data>
 </root>

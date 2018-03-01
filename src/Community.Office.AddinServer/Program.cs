@@ -29,8 +29,10 @@ namespace Community.Office.AddinServer
             Console.WriteLine(assembly.GetCustomAttribute<AssemblyCopyrightAttribute>().Copyright);
             Console.WriteLine();
 
+            var assemblyName = Path.GetFileNameWithoutExtension(assembly.Location);
+
             var configurationBuilder = new ConfigurationBuilder()
-                .AddJsonFile(Path.Combine(Path.GetDirectoryName(assembly.Location), "settings.json"), true, false)
+                .AddJsonFile(Path.Combine(Path.GetDirectoryName(assembly.Location), assemblyName + ".json"), true, false)
                 .AddCommandLine(args);
 
             try
@@ -57,8 +59,11 @@ namespace Community.Office.AddinServer
                     }
                 }
 
-                var x509File = x509FileValue != null ? Path.GetFullPath(x509FileValue) : Path.Combine(Path.GetDirectoryName(assembly.Location), "certificate.pfx");
-                var x509Password = configuration["x509-password"] ?? string.Empty;
+                var x509File = x509FileValue != null ?
+                    Path.GetFullPath(x509FileValue) :
+                    Path.Combine(Path.GetDirectoryName(assembly.Location), assemblyName + ".pfx");
+
+                var x509Password = configuration["x509-pass"] ?? string.Empty;
                 var logFileValue = configuration["log-file"];
                 var logFile = logFileValue != null ? Path.GetFullPath(logFileValue) : null;
                 var certificate = new X509Certificate2(x509File, x509Password);

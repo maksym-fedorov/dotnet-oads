@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>1.0.10</Version>
+    <Version>1.1.0</Version>
     <Product><![CDATA[Office Add-in Debug Server]]></Product>
     <Copyright><![CDATA[(c) Alexander Kozlenko. All rights reserved.]]></Copyright>
   </PropertyGroup>
@@ -28,7 +28,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
   </ItemGroup>
   <Target Name="CopyCertificate" AfterTargets="Build">
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)../certificate/certificate.pfx" DestinationFolder="$(OutputPath)" />
-    <Message Text="$([MSBuild]::NormalizePath('$(MSBuildThisFileDirectory)../certificate/certificate.pfx')) -&gt; $([MSBuild]::NormalizePath('$(OutputPath)/certificate.pfx'))" Importance="high" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)../x509/$(AssemblyName).pfx" DestinationFolder="$(OutputPath)" SkipUnchangedFiles="true" />
   </Target>
 </Project>

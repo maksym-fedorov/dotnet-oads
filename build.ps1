@@ -21,3 +21,7 @@ function execute {
 
 execute { dotnet clean "$sources" -c $configuration };
 execute { dotnet build "$sources" -c $configuration };
+
+foreach ($project in (get-childitem -path "$sources" -file -include "*.Tests.csproj" -recurse)) {
+    execute { dotnet test "$project" -c $configuration --no-restore --no-build };
+}

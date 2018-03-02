@@ -6,7 +6,7 @@ using Microsoft.Extensions.Primitives;
 namespace Community.Office.AddinServer.Middleware
 {
     /// <summary>Represents add-in request filtering middleware.</summary>
-    internal sealed class RequestFilteringMiddleware : IMiddleware
+    public sealed class RequestFilteringMiddleware : IMiddleware
     {
         /// <summary>Initializes a new instance of the <see cref="RequestFilteringMiddleware" /> class.</summary>
         public RequestFilteringMiddleware()

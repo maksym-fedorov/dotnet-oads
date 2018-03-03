@@ -124,7 +124,7 @@
     <value>Error: {0}</value>
   </data>
   <data name="program.usage_message" xml:space="preserve">
-    <value>Usage: dotnet {0} --server-root &lt;value&gt; [--server-port &lt;value&gt;] [--x509-file &lt;value&gt;] [--x509-password &lt;value&gt;]</value>
+    <value>Usage: dotnet {0} [--server-root &lt;value&gt;] [--server-port &lt;value&gt;] [--x509-file &lt;value&gt;] [--x509-password &lt;value&gt;]</value>
   </data>
   <data name="resource.undefined" xml:space="preserve">
     <value>The specified resource "{0}" is not found</value>

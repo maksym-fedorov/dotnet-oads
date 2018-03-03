@@ -10,7 +10,7 @@ CLI | File | Default Value | Purpose
 `--x509-pass` | `x509-pass` | | The server certificate password
 `--log-file` | `log-file` | | The log file path
 
-```sh
+```
 dotnet oads.dll \
     [--server-root <value>] \
     [--server-port <value>] \

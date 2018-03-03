@@ -43,7 +43,8 @@ dotnet oads.dll \
 ```
 Office Add-in Debug Server version 1.0.0
 
-Listening https://localhost:44300/ for incoming connections...
+Server root: "/Users/user/src/"
+Server address: https://localhost:44300
 
 2018-01-02/03:04:05.06+00:00 WARN 404 GET "/favicon.ico"
 2018-01-02/03:04:05.06+00:00 INFO 200 GET "/app.html"

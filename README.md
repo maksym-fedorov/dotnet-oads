@@ -3,7 +3,7 @@
 Local web server for debugging [Microsoft Office Add-ins](https://docs.microsoft.com/en-us/office/dev/add-ins/overview/office-add-ins) on macOS. The server is based on [.NET Core 2.0](https://www.microsoft.com/net/download/macos) and provides access to static add-in files. Run parameters can be provided via command-line interface or via the `oads.json` file located in the application or current directory.
 
 CLI | File | Default Value | Purpose
---- | --- | --- | --- | ---
+--- | --- | --- | ---
 `--server-root` | `server-root` | `./`| The server root directory
 `--server-port` | `server-port` | `44300` | The server port
 `--x509-file` | `x509-file` | `oads.pfx` | The server certificate file path

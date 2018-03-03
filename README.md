@@ -1,6 +1,6 @@
 ## Office Add-in Debug Server
 
-Local web server for debugging [Microsoft Office Add-ins](https://dev.office.com/docs/add-ins/overview/office-add-ins) on macOS. The server is based on [.NET Core 2.0](https://www.microsoft.com/net/download/macos) and provides access to static add-in files. Run parameters can be provided via command-line interface or via the `oads.json` file located in the application directory.
+Local web server for debugging [Microsoft Office Add-ins](https://docs.microsoft.com/en-us/office/dev/add-ins/overview/office-add-ins) on macOS. The server is based on [.NET Core 2.0](https://www.microsoft.com/net/download/macos) and provides access to static add-in files. Run parameters can be provided via command-line interface or via the `oads.json` file located in the application directory.
 
 CLI | File | Mandatory | Default Value | Purpose
 --- | --- | :---: | --- | ---

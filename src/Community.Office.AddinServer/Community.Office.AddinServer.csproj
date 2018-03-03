@@ -8,6 +8,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <AssemblyName>oads</AssemblyName>
+    <NoWin32Manifest>True</NoWin32Manifest>
     <OutputPath>$(RepositoryPath)/bin/bin/$(AssemblyName)/$(Configuration)/</OutputPath>
     <ApplicationIcon />
     <StartupObject />

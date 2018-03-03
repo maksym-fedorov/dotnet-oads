@@ -33,62 +33,46 @@ namespace Community.Office.AddinServer
 
             var configurationBuilder = new ConfigurationBuilder()
                 .AddJsonFile(Path.Combine(Path.GetDirectoryName(assembly.Location), assemblyName + ".json"), true, false)
+                .AddJsonFile(Path.Combine(Environment.CurrentDirectory, assemblyName + ".json"), true, false)
                 .AddCommandLine(args);
 
             try
             {
                 var configuration = configurationBuilder.Build();
+                var serverRoot = Path.GetFullPath(configuration["server-root"] ?? Environment.CurrentDirectory);
 
-                var serverRootValue = configuration["server-root"];
-                var serverPortValue = configuration["server-port"];
+                if (!int.TryParse(configuration["server-port"], NumberStyles.None, CultureInfo.InvariantCulture, out var serverPort))
+                {
+                    serverPort = 44300;
+                }
+
                 var x509FileValue = configuration["x509-file"];
-
-                if (serverRootValue == null)
-                {
-                    throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, Strings.GetString("program.undefined_parameter"), "server-root"));
-                }
-
-                var serverRoot = Path.GetFullPath(serverRootValue);
-                var serverPort = 44300;
-
-                if (serverPortValue != null)
-                {
-                    if (!int.TryParse(serverPortValue, NumberStyles.None, CultureInfo.InvariantCulture, out serverPort))
-                    {
-                        throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, Strings.GetString("program.invalid_parameter"), "server-port"));
-                    }
-                }
-
-                var x509File = x509FileValue != null ?
-                    Path.GetFullPath(x509FileValue) :
-                    Path.Combine(Path.GetDirectoryName(assembly.Location), assemblyName + ".pfx");
-
+                var x509File = x509FileValue != null ? Path.GetFullPath(x509FileValue) : Path.Combine(Path.GetDirectoryName(assembly.Location), assemblyName + ".pfx");
                 var x509Password = configuration["x509-pass"] ?? string.Empty;
                 var logFileValue = configuration["log-file"];
                 var logFile = logFileValue != null ? Path.GetFullPath(logFileValue) : null;
-                var certificate = new X509Certificate2(x509File, x509Password);
 
                 void ConfigureKestrelAction(KestrelServerOptions options)
                 {
                     options.Limits.KeepAliveTimeout = TimeSpan.FromHours(1);
-                    options.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(certificate));
+                    options.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(new X509Certificate2(x509File, x509Password)));
                     options.AddServerHeader = false;
                 }
 
-                var host = new WebHostBuilder()
-                    .ConfigureServices(sc => sc.Configure<ServerOptions>(lo => lo.LoggingFilePath = logFile))
+                var hostBuilder = new WebHostBuilder()
+                    .ConfigureServices(sc => sc.Configure<ServerOptions>(so => so.LoggingFilePath = logFile))
                     .UseKestrel(ConfigureKestrelAction)
                     .UseWebRoot(serverRoot)
                     .UseContentRoot(serverRoot)
-                    .UseStartup<Startup>()
-                    .Build();
+                    .UseStartup<Startup>();
 
-                using (host)
+                using (var host = hostBuilder.Build())
                 {
                     host.Start();
 
                     var serverPortToken = serverPort == 80 ? string.Empty : string.Format(CultureInfo.InvariantCulture, ":{0}", serverPort);
 
+                    Console.WriteLine(Strings.GetString("server.root_info"), serverRoot);
                     Console.WriteLine(Strings.GetString("server.address_info"), serverPortToken);
                     Console.WriteLine();
 

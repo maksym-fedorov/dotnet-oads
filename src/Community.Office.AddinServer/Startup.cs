@@ -48,6 +48,7 @@ namespace Community.Office.AddinServer
             builder.UseMiddleware<RequestFilteringMiddleware>();
             builder.UseMiddleware<RequestTracingMiddleware>();
             builder.UseStaticFiles(staticFileOptions);
+            builder.UseDirectoryBrowser();
             builder.UseStatusCodePages(CreateStatusAsync);
         }
 

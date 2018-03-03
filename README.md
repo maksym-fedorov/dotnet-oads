@@ -1,19 +1,21 @@
 ## Office Add-in Debug Server
 
-Local web server for debugging [Microsoft Office Add-ins](https://docs.microsoft.com/en-us/office/dev/add-ins/overview/office-add-ins) on macOS. The server is based on [.NET Core 2.0](https://www.microsoft.com/net/download/macos) and provides access to static add-in files. Run parameters can be provided via command-line interface or via the `oads.json` file located in the application directory.
+Local web server for debugging [Microsoft Office Add-ins](https://docs.microsoft.com/en-us/office/dev/add-ins/overview/office-add-ins) on macOS. The server is based on [.NET Core 2.0](https://www.microsoft.com/net/download/macos) and provides access to static add-in files. Run parameters can be provided via command-line interface or via the `oads.json` file located in the application or current directory.
 
-CLI | File | Mandatory | Default Value | Purpose
---- | --- | :---: | --- | ---
-`--server-root` | `server-root` | Yes | | The server root directory
-`--server-port` | `server-port` | No | `44300` | The server port
-`--x509-file` | `x509-file` | No | `oads.pfx` | The server certificate file path
-`--x509-pass` | `x509-pass` | No | | The server certificate password
-`--log-file` | `log-file` | No | | The log file path
+CLI | File | Default Value | Purpose
+--- | --- | --- | --- | ---
+`--server-root` | `server-root` | `./`| The server root directory
+`--server-port` | `server-port` | `44300` | The server port
+`--x509-file` | `x509-file` | `oads.pfx` | The server certificate file path
+`--x509-pass` | `x509-pass` | | The server certificate password
+`--log-file` | `log-file` | | The log file path
 
-```
+```sh
 dotnet oads.dll \
-    --server-root <value> [--server-port <value>] \
-    [--x509-file <value>] [--x509-pass <value>] \
+    [--server-root <value>] \
+    [--server-port <value>] \
+    [--x509-file <value>] \
+    [--x509-pass <value>] \
     [--log-file <value>]
 ```
 ```json
@@ -29,6 +31,7 @@ dotnet oads.dll \
 ### Specifics
 
 - The server certificate must be added to the list of trusted OS certificates.
+- Configuration file in the current directory has higher priority.
 - Connection keep-alive timeout is 60 minutes.
 
 ### Limitations

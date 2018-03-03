@@ -123,12 +123,6 @@
   <data name="program.error_message" xml:space="preserve">
     <value>Error: {0}</value>
   </data>
-  <data name="program.invalid_parameter" xml:space="preserve">
-    <value>The "{0}" parameter is invalid</value>
-  </data>
-  <data name="program.undefined_parameter" xml:space="preserve">
-    <value>The "{0}" parameter is not specified</value>
-  </data>
   <data name="program.usage_message" xml:space="preserve">
     <value>Usage: dotnet {0} --server-root &lt;value&gt; [--server-port &lt;value&gt;] [--x509-file &lt;value&gt;] [--x509-password &lt;value&gt;]</value>
   </data>
@@ -136,6 +130,9 @@
     <value>The specified resource "{0}" is not found</value>
   </data>
   <data name="server.address_info" xml:space="preserve">
-    <value>Listening https://localhost{0}/ for incoming connections...</value>
+    <value>Server address: https://localhost{0}</value>
+  </data>
+  <data name="server.root_info" xml:space="preserve">
+    <value>Server root: "{0}"</value>
   </data>
 </root>

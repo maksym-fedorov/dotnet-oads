@@ -96,6 +96,14 @@ namespace Community.Office.AddinServer
                 Console.ForegroundColor = foregroundColor;
                 Console.WriteLine();
                 Console.WriteLine(Strings.GetString("program.usage_message"), Path.GetFileName(assembly.Location));
+                Console.WriteLine();
+                Console.WriteLine(Strings.GetString("program.usage_arguments"));
+                Console.WriteLine();
+                Console.WriteLine(Strings.GetString("program.usage_argument_server_root"));
+                Console.WriteLine(Strings.GetString("program.usage_argument_server_port"));
+                Console.WriteLine(Strings.GetString("program.usage_argument_x509_file"));
+                Console.WriteLine(Strings.GetString("program.usage_argument_x509_pass"));
+                Console.WriteLine(Strings.GetString("program.usage_argument_log_file"));
             }
         }
 

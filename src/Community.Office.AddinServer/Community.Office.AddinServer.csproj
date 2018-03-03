@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <Product><![CDATA[Office Add-in Debug Server]]></Product>
     <Copyright><![CDATA[(c) Alexander Kozlenko. All rights reserved.]]></Copyright>
   </PropertyGroup>
@@ -19,6 +19,12 @@
     <EmbeddedResource Include="Assets/**/*" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildProjectDirectory)/../x509/$(AssemblyName).pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.1" />
@@ -26,8 +32,8 @@
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="1.1.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="4.0.0" />
   </ItemGroup>
-  <Target Name="CopyCertificate" AfterTargets="Build">
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)../x509/$(AssemblyName).pfx" DestinationFolder="$(OutputPath)" SkipUnchangedFiles="true" />
-  </Target>
 </Project>

@@ -1,81 +1,36 @@
 ﻿using System;
-using System.Globalization;
-using System.IO;
-using System.Text;
 using System.Threading.Tasks;
-using Community.Office.AddinServer.Data;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
+using Serilog;
+using Serilog.Events;
 
 namespace Community.Office.AddinServer.Middleware
 {
-    /// <summary>Represents add-in request tracking middleware.</summary>
-    internal sealed class RequestTracingMiddleware : IMiddleware
+    /// <summary>Represents request tracking middleware.</summary>
+    public sealed class RequestTracingMiddleware : IMiddleware
     {
-        private static readonly object _consoleSyncRoot = new object();
-
-        private readonly string _filePath;
-        private readonly string _folderPath;
+        private readonly ILogger _logger;
 
         /// <summary>Initializes a new instance of the <see cref="RequestTracingMiddleware" /> class.</summary>
-        /// <param name="options">The logging options.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="options" /> is <see langword="null" />.</exception>
-        public RequestTracingMiddleware(IOptions<LoggingOptions> options)
+        /// <param name="logger">The logger instance.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="logger" /> is <see langword="null" />.</exception>
+        public RequestTracingMiddleware(ILogger logger)
         {
-            if (options == null)
+            if (logger == null)
             {
-                throw new ArgumentNullException(nameof(options));
+                throw new ArgumentNullException(nameof(logger));
             }
 
-            _filePath = options.Value.FilePath;
-
-            if (_filePath != null)
-            {
-                _folderPath = Path.GetDirectoryName(_filePath);
-            }
+            _logger = logger;
         }
 
         async Task IMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
         {
             await next.Invoke(context);
 
-            var message = string.Format(CultureInfo.InvariantCulture, "{0:O} {1} {2} \"{3}{4}\"",
-                DateTime.Now, context.Response.StatusCode, context.Request.Method, context.Request.Path, context.Request.QueryString);
+            var level = context.Response.StatusCode < StatusCodes.Status400BadRequest ? LogEventLevel.Information : LogEventLevel.Warning;
 
-            WriteLine(message, context.Response.StatusCode >= StatusCodes.Status400BadRequest ? ConsoleColor.Red : (ConsoleColor?)null);
-
-            if (_filePath != null)
-            {
-                Directory.CreateDirectory(_folderPath);
-
-                using (var fileStream = new FileStream(_filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read))
-                {
-                    using (var streamWriter = new StreamWriter(fileStream, Encoding.UTF8))
-                    {
-                        streamWriter.WriteLine(message);
-                    }
-                }
-            }
-        }
-
-        private static void WriteLine(string value, ConsoleColor? color = null)
-        {
-            lock (_consoleSyncRoot)
-            {
-                var foregroundColor = Console.ForegroundColor;
-
-                if (color.HasValue && (color.Value != foregroundColor))
-                {
-                    Console.ForegroundColor = color.Value;
-                }
-
-                Console.WriteLine(value);
-
-                if (color.HasValue && (color.Value != foregroundColor))
-                {
-                    Console.ForegroundColor = foregroundColor;
-                }
-            }
+            _logger.Write(level, "{0} {1} \"{2}{3}\"", context.Response.StatusCode, context.Request.Method, context.Request.Path.Value, context.Request.QueryString.Value);
         }
     }
 }

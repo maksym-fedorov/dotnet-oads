@@ -42,8 +42,8 @@ Office Add-in Debug Server version 1.0.0
 
 Listening https://localhost:44300/ for incoming connections...
 
-2018-01-02T03:04:05.0123456+01:00 404 GET "/favicon.ico"
-2018-01-02T03:04:05.0123457+01:00 200 GET "/index.html"
+2018-01-02/03:04:05.06+00:00 WARN 404 GET "/favicon.ico"
+2018-01-02/03:04:05.06+00:00 INFO 200 GET "/app.html"
 ```
 
 [![Latest release](https://img.shields.io/github/release/alexanderkozlenko/office-addin-server.svg?style=flat-square)](https://github.com/alexanderkozlenko/office-addin-server/releases)

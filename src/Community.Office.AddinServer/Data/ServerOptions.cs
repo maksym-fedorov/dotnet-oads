@@ -1,0 +1,18 @@
+﻿namespace Community.Office.AddinServer.Data
+{
+    /// <summary>Provides the server options.</summary>
+    internal sealed class ServerOptions
+    {
+        /// <summary>Initializes a new instance of the <see cref="ServerOptions" /> class.</summary>
+        public ServerOptions()
+        {
+        }
+
+        /// <summary>Gets or sets the logging file path.</summary>
+        public string LoggingFilePath
+        {
+            get;
+            set;
+        }
+    }
+}

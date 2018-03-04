@@ -72,9 +72,7 @@ namespace Community.Office.AddinServer
 
         private static Task CreateStatusAsync(StatusCodeContext context)
         {
-            var message = string.Format(CultureInfo.InvariantCulture, "{0} \"{1}{2}\"",
-                context.HttpContext.Request.Method, context.HttpContext.Request.Path, context.HttpContext.Request.QueryString);
-
+            var message = string.Format(CultureInfo.InvariantCulture, "\"{0}{1}\"", context.HttpContext.Request.Path, context.HttpContext.Request.QueryString);
             var content = _errorPageTemplate.Replace("{message}", message);
 
             context.HttpContext.Response.ContentType = "text/html";

@@ -117,6 +117,8 @@ namespace Community.Office.AddinServer
             _resetEvent.Wait();
 
             e.Cancel = true;
+
+            Console.CancelKeyPress -= OnCancelKeyPress;
         }
     }
 }

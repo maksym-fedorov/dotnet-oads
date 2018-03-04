@@ -29,7 +29,7 @@ namespace Community.Office.AddinServer.Middleware
         {
             await next.Invoke(context);
 
-            var level = context.Response.StatusCode < StatusCodes.Status400BadRequest ? LogEventLevel.Information : LogEventLevel.Warning;
+            var level = context.Response.StatusCode < StatusCodes.Status400BadRequest ? LogEventLevel.Information : LogEventLevel.Error;
 
             var values = new object[]
             {

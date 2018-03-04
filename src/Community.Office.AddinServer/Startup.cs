@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Community.Office.AddinServer.Data;
 using Community.Office.AddinServer.Middleware;
@@ -55,20 +56,45 @@ namespace Community.Office.AddinServer
 
         IServiceProvider IStartup.ConfigureServices(IServiceCollection services)
         {
-            var loggerConfiguration = new LoggerConfiguration();
-
-            loggerConfiguration.WriteTo.Async(c => c.Console(outputTemplate: _loggingTemplate, theme: AnsiConsoleTheme.Code));
-
-            if (_options.LoggingFilePath != null)
-            {
-                loggerConfiguration.WriteTo.Async(c => c.File(outputTemplate: _loggingTemplate, path: _options.LoggingFilePath));
-            }
-
             return services
-                .AddSingleton<ILogger>(sp => loggerConfiguration.CreateLogger())
+                .AddSingleton(CreateLogger)
                 .AddSingleton<RequestFilteringMiddleware, RequestFilteringMiddleware>()
                 .AddSingleton<RequestTracingMiddleware, RequestTracingMiddleware>()
                 .BuildServiceProvider();
+        }
+
+        private ILogger CreateLogger(IServiceProvider services)
+        {
+            var configuration = new LoggerConfiguration();
+
+            var theme = new AnsiConsoleTheme(new Dictionary<ConsoleThemeStyle, string>
+            {
+                [ConsoleThemeStyle.Text] = "\x1b[38;5;0253m",
+                [ConsoleThemeStyle.SecondaryText] = "\x1b[38;5;0246m",
+                [ConsoleThemeStyle.TertiaryText] = "\x1b[38;5;0253m",
+                [ConsoleThemeStyle.Invalid] = "\x1b[33;1m",
+                [ConsoleThemeStyle.Null] = "\x1b[38;5;0038m",
+                [ConsoleThemeStyle.Name] = "\x1b[38;5;0081m",
+                [ConsoleThemeStyle.String] = "\x1b[38;5;0216m",
+                [ConsoleThemeStyle.Number] = "\x1b[38;5;151m",
+                [ConsoleThemeStyle.Boolean] = "\x1b[38;5;0038m",
+                [ConsoleThemeStyle.Scalar] = "\x1b[38;5;0079m",
+                [ConsoleThemeStyle.LevelVerbose] = "\x1b[37m",
+                [ConsoleThemeStyle.LevelDebug] = "\x1b[37m",
+                [ConsoleThemeStyle.LevelInformation] = "\x1b[37;1m",
+                [ConsoleThemeStyle.LevelWarning] = "\x1b[38;5;0229m",
+                [ConsoleThemeStyle.LevelError] = "\x1b[38;5;0196m",
+                [ConsoleThemeStyle.LevelFatal] = "\x1b[38;5;0196m"
+            });
+
+            configuration.WriteTo.Async(c => c.Console(outputTemplate: _loggingTemplate, theme: theme));
+
+            if (_options.LoggingFilePath != null)
+            {
+                configuration.WriteTo.Async(c => c.File(outputTemplate: _loggingTemplate, path: _options.LoggingFilePath));
+            }
+
+            return configuration.CreateLogger();
         }
 
         private static Task CreateStatusCodePageAsync(StatusCodeContext context)

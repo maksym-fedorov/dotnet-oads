@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Serilog;
 using Serilog.Events;
 
@@ -28,9 +30,12 @@ namespace Community.Office.AddinServer.Middleware
         {
             await next.Invoke(context);
 
-            var level = context.Response.StatusCode < StatusCodes.Status400BadRequest ? LogEventLevel.Information : LogEventLevel.Warning;
+            var message = string.Format(CultureInfo.InvariantCulture, "{0} {1} {2}",
+                context.Response.StatusCode,
+                context.Request.Method,
+                context.Request.GetEncodedPathAndQuery());
 
-            _logger.Write(level, "{0} {1} \"{2}{3}\"", context.Response.StatusCode, context.Request.Method, context.Request.Path.Value, context.Request.QueryString.Value);
+            _logger.Write(context.Response.StatusCode < StatusCodes.Status400BadRequest ? LogEventLevel.Information : LogEventLevel.Warning, message);
         }
     }
 }

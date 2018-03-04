@@ -52,11 +52,11 @@ namespace Community.Office.AddinServer
                 var logFileValue = configuration["log-file"];
                 var logFile = logFileValue != null ? Path.GetFullPath(logFileValue) : null;
 
-                void ConfigureKestrelAction(KestrelServerOptions options)
+                void ConfigureKestrelAction(KestrelServerOptions kso)
                 {
-                    options.Limits.KeepAliveTimeout = TimeSpan.FromHours(1);
-                    options.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(new X509Certificate2(x509File, x509Password)));
-                    options.AddServerHeader = false;
+                    kso.Limits.KeepAliveTimeout = TimeSpan.FromHours(1);
+                    kso.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(new X509Certificate2(x509File, x509Password)));
+                    kso.AddServerHeader = false;
                 }
 
                 var hostBuilder = new WebHostBuilder()

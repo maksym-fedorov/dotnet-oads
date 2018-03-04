@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Threading.Tasks;
 using Community.Office.AddinServer.Data;
 using Community.Office.AddinServer.Middleware;
@@ -8,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Serilog;
@@ -18,7 +18,7 @@ namespace Community.Office.AddinServer
     /// <summary>Represents server startup logic.</summary>
     internal sealed class Startup : IStartup
     {
-        private const string _loggingTemplate = "{Timestamp:yyyy-MM-dd/HH:mm:ss.ffzzz} {Level:u4} {Message:lj}{NewLine}";
+        private const string _loggingTemplate = "{Timestamp:yyyy-MM-dd/HH:mm:ss.ffzzz} {Level:u3} {Message:lj}{NewLine}";
 
         private static readonly string _errorPageTemplate = EmbeddedResourceManager.GetString("Assets.ErrorPage.html");
 
@@ -45,11 +45,12 @@ namespace Community.Office.AddinServer
                 DefaultContentType = "application/octet-stream"
             };
 
-            builder.UseMiddleware<RequestFilteringMiddleware>();
-            builder.UseMiddleware<RequestTracingMiddleware>();
-            builder.UseStaticFiles(staticFileOptions);
-            builder.UseDirectoryBrowser();
-            builder.UseStatusCodePages(CreateStatusAsync);
+            builder
+                .UseMiddleware<RequestFilteringMiddleware>()
+                .UseMiddleware<RequestTracingMiddleware>()
+                .UseStaticFiles(staticFileOptions)
+                .UseDirectoryBrowser()
+                .UseStatusCodePages(CreateStatusCodePageAsync);
         }
 
         IServiceProvider IStartup.ConfigureServices(IServiceCollection services)
@@ -63,21 +64,20 @@ namespace Community.Office.AddinServer
                 loggerConfiguration.WriteTo.Async(c => c.File(outputTemplate: _loggingTemplate, path: _options.LoggingFilePath));
             }
 
-            services.AddSingleton<ILogger>(sp => loggerConfiguration.CreateLogger());
-            services.AddSingleton<RequestFilteringMiddleware, RequestFilteringMiddleware>();
-            services.AddSingleton<RequestTracingMiddleware, RequestTracingMiddleware>();
-
-            return services.BuildServiceProvider();
+            return services
+                .AddSingleton<ILogger>(sp => loggerConfiguration.CreateLogger())
+                .AddSingleton<RequestFilteringMiddleware, RequestFilteringMiddleware>()
+                .AddSingleton<RequestTracingMiddleware, RequestTracingMiddleware>()
+                .BuildServiceProvider();
         }
 
-        private static Task CreateStatusAsync(StatusCodeContext context)
+        private static Task CreateStatusCodePageAsync(StatusCodeContext context)
         {
-            var message = string.Format(CultureInfo.InvariantCulture, "\"{0}{1}\"", context.HttpContext.Request.Path, context.HttpContext.Request.QueryString);
-            var content = _errorPageTemplate.Replace("{message}", message);
-
             context.HttpContext.Response.ContentType = "text/html";
 
-            return context.HttpContext.Response.WriteAsync(content, context.HttpContext.RequestAborted);
+            var message = _errorPageTemplate.Replace("{message}", context.HttpContext.Request.GetEncodedPathAndQuery());
+
+            return context.HttpContext.Response.WriteAsync(message, context.HttpContext.RequestAborted);
         }
     }
 }

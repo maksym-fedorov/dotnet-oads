@@ -30,7 +30,7 @@ dotnet oads.dll \
 
 ### Specifics
 
-- The server certificate must be added to the list of trusted OS certificates.
+- The server [certificate](./src/x509/oads.pfx) must be added to the list of trusted OS certificates.
 - Configuration file in the current directory has higher priority.
 - Connection keep-alive timeout is 60 minutes.
 

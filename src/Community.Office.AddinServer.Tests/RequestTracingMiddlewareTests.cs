@@ -16,7 +16,7 @@ namespace Community.Office.AddinServer.Tests
         {
             var loggerMock = new Mock<Serilog.ILogger>(MockBehavior.Strict);
 
-            loggerMock.Setup(o => o.Write(It.IsAny<Serilog.Events.LogEventLevel>(), It.IsAny<string>()));
+            loggerMock.Setup(o => o.Write(It.IsAny<Serilog.Events.LogEventLevel>(), It.IsAny<string>(), It.IsAny<object[]>()));
 
             var builder = new WebHostBuilder()
                 .ConfigureServices(sc => sc
@@ -34,7 +34,7 @@ namespace Community.Office.AddinServer.Tests
                 }
             }
 
-            loggerMock.Verify(o => o.Write(It.IsAny<Serilog.Events.LogEventLevel>(), It.IsAny<string>()), Times.Exactly(1));
+            loggerMock.Verify(o => o.Write(It.IsAny<Serilog.Events.LogEventLevel>(), It.IsAny<string>(), It.IsAny<object[]>()), Times.Exactly(1));
         }
     }
 }

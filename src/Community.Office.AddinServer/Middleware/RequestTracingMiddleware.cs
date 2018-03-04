@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -30,12 +29,16 @@ namespace Community.Office.AddinServer.Middleware
         {
             await next.Invoke(context);
 
-            var message = string.Format(CultureInfo.InvariantCulture, "{0} {1} {2}",
+            var level = context.Response.StatusCode < StatusCodes.Status400BadRequest ? LogEventLevel.Information : LogEventLevel.Warning;
+
+            var values = new object[]
+            {
                 context.Response.StatusCode,
                 context.Request.Method,
-                context.Request.GetEncodedPathAndQuery());
+                context.Request.GetEncodedPathAndQuery()
+            };
 
-            _logger.Write(context.Response.StatusCode < StatusCodes.Status400BadRequest ? LogEventLevel.Information : LogEventLevel.Warning, message);
+            _logger.Write(level, "{0} {1} {2}", values);
         }
     }
 }

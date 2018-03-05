@@ -147,6 +147,9 @@
   <data name="resource.undefined" xml:space="preserve">
     <value>The specified resource "{0}" is not found</value>
   </data>
+  <data name="server.abort_token" xml:space="preserve">
+    <value>Aborted</value>
+  </data>
   <data name="server.address_info" xml:space="preserve">
     <value>Server address: https://localhost{0}</value>
   </data>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Community.Office.AddinServer.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Serilog;
@@ -29,16 +30,31 @@ namespace Community.Office.AddinServer.Middleware
         {
             await next.Invoke(context);
 
-            var level = context.Response.StatusCode < StatusCodes.Status400BadRequest ? LogEventLevel.Information : LogEventLevel.Error;
-
-            var values = new object[]
+            if (!context.RequestAborted.IsCancellationRequested)
             {
-                context.Response.StatusCode,
-                context.Request.Method,
-                context.Request.GetEncodedPathAndQuery()
-            };
+                var level = context.Response.StatusCode < StatusCodes.Status400BadRequest ? LogEventLevel.Information : LogEventLevel.Error;
 
-            _logger.Write(level, "{0} {1} {2}", values);
+                var values = new object[]
+                {
+                    context.Response.StatusCode,
+                    context.Request.Method,
+                    context.Request.GetEncodedPathAndQuery()
+                };
+
+                _logger.Write(level, "{0} {1} {2}", values);
+            }
+            else
+            {
+                var values = new object[]
+                {
+                    context.Response.StatusCode,
+                    context.Request.Method,
+                    context.Request.GetEncodedPathAndQuery(),
+                    Strings.GetString("server.abort_token").ToUpperInvariant()
+                };
+
+                _logger.Write(LogEventLevel.Error, "{0} {1} {2} {3}", values);
+            }
         }
     }
 }

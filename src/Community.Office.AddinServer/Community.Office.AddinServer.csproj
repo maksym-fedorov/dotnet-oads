@@ -20,7 +20,8 @@
     <EmbeddedResource Include="Assets/**/*" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildProjectDirectory)/../x509/$(AssemblyName).pfx">
+    <Content Include="$(MSBuildProjectDirectory)/../x509/https.pfx">
+      <Link>$(AssemblyName).pfx</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>false</Visible>
     </Content>

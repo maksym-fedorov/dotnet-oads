@@ -46,16 +46,19 @@ namespace Community.Office.AddinServer
                     serverPort = 44300;
                 }
 
-                var x509FileValue = configuration["x509-file"];
-                var x509File = x509FileValue != null ? Path.GetFullPath(x509FileValue) : Path.Combine(Path.GetDirectoryName(assembly.Location), assemblyName + ".pfx");
-                var x509Password = configuration["x509-pass"] ?? string.Empty;
                 var logFileValue = configuration["log-file"];
                 var logFile = logFileValue != null ? Path.GetFullPath(logFileValue) : null;
+                var certificateFile = Path.Combine(Path.GetDirectoryName(assembly.Location), "https.pfx");
+
+                if (!File.Exists(certificateFile))
+                {
+                    throw new FileNotFoundException(string.Format(CultureInfo.InvariantCulture, Strings.GetString("server.certificate.absent_file"), certificateFile));
+                }
 
                 void ConfigureKestrelAction(KestrelServerOptions kso)
                 {
+                    kso.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(new X509Certificate2(certificateFile)));
                     kso.Limits.KeepAliveTimeout = TimeSpan.FromHours(1);
-                    kso.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(new X509Certificate2(x509File, x509Password)));
                     kso.AddServerHeader = false;
                 }
 
@@ -101,8 +104,6 @@ namespace Community.Office.AddinServer
                 Console.WriteLine();
                 Console.WriteLine(Strings.GetString("program.usage_argument_server_root"));
                 Console.WriteLine(Strings.GetString("program.usage_argument_server_port"));
-                Console.WriteLine(Strings.GetString("program.usage_argument_x509_file"));
-                Console.WriteLine(Strings.GetString("program.usage_argument_x509_pass"));
                 Console.WriteLine(Strings.GetString("program.usage_argument_log_file"));
             }
         }

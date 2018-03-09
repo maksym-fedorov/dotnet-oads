@@ -5,7 +5,11 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Community.Office.AddinServer", "Community.Office.AddinServer\Community.Office.AddinServer.csproj", "{4A35515D-A5EE-48DF-900D-BDCBA94B8B92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Community.Office.AddinServer.Tests", "Community.Office.AddinServer.Tests\Community.Office.AddinServer.Tests.csproj", "{8623EDD2-708D-497A-9FAF-5A5AB63E124F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Community.Office.AddinServer.Tests", "Community.Office.AddinServer.Tests\Community.Office.AddinServer.Tests.csproj", "{8623EDD2-708D-497A-9FAF-5A5AB63E124F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Community.Office.AddinServer.Certificates", "Community.Office.AddinServer.Certificates\Community.Office.AddinServer.Certificates.csproj", "{64939591-3FF7-4249-A592-C3C115C4D508}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Community.Office.AddinServer.Certificates.Tests", "Community.Office.AddinServer.Certificates.Tests\Community.Office.AddinServer.Certificates.Tests.csproj", "{DB847135-E20D-496F-99F2-233153EF1A93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{8623EDD2-708D-497A-9FAF-5A5AB63E124F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8623EDD2-708D-497A-9FAF-5A5AB63E124F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8623EDD2-708D-497A-9FAF-5A5AB63E124F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64939591-3FF7-4249-A592-C3C115C4D508}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64939591-3FF7-4249-A592-C3C115C4D508}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64939591-3FF7-4249-A592-C3C115C4D508}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64939591-3FF7-4249-A592-C3C115C4D508}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB847135-E20D-496F-99F2-233153EF1A93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB847135-E20D-496F-99F2-233153EF1A93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB847135-E20D-496F-99F2-233153EF1A93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB847135-E20D-496F-99F2-233153EF1A93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -28,10 +28,10 @@ Parameter | Default Value | Purpose
 `server-port` | `44300` | The server port
 `log-file` | | The log file path
 
-The server requires a test HTTPS certificate named `https.pfx` with empty password located in the application directory. This certificate can be created via the `oads-cert` tool.
+The server requires an HTTPS certificate named `https.pfx` without password located in the application directory. Such test certificate can be created via the `oads-cert` tool.
 
 ```
-dotnet oads-cert.dll --command <value>] [--cert-file <value>]
+dotnet oads-cert.dll --command <value> [--cert-file <value>]
 ```
 
 Parameter | Default Value | Purpose

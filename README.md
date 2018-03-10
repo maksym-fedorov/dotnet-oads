@@ -37,11 +37,11 @@ dotnet oads-cert.dll --command <value> [--cert-file <value>]
 Parameter | Default Value | Purpose
 --- | --- | ---
 `--command` | | The command to execute
-`--log-file` | `./https.pfx` | The certificate file path
+`--cert-file` | `./https.pfx` | The certificate file path
 
 Command | Purpose
 --- | ---
-`create` | Create new self-signed certificate
+`create` | Create new self-signed test certificate
 
 ### Specifics
 

@@ -73,6 +73,8 @@ namespace Community.Office.AddinServer
                 {
                     host.Start();
 
+                    Console.Title = string.Format(CultureInfo.InvariantCulture, "{0} [{1}]", assembly.GetCustomAttribute<AssemblyProductAttribute>().Product, serverPort);
+
                     var serverPortToken = serverPort == 80 ? string.Empty : string.Format(CultureInfo.InvariantCulture, ":{0}", serverPort);
 
                     Console.WriteLine(Strings.GetString("server.root_info"), serverRoot);

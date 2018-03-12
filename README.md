@@ -59,13 +59,13 @@ dotnet oads-cert.dll --command create
 ```
 Office Add-in Debug Certificate Manager version 1.0.0
 
-Created a certificate at "/Users/user/src/https.pfx"
+Created a certificate at "/Users/user/oads/https.pfx"
 
 Certificate period: 01/02/2018 - 01/02/2019 (UTC)
 Certificate thumbprint: 4034E13C94B5A3C4006F1C2EBC901488ADF438E8
 ```
 ```
-dotnet oads.dll
+dotnet oads.dll --server-root /Users/user/src/
 ```
 ```
 Office Add-in Debug Server version 1.0.0

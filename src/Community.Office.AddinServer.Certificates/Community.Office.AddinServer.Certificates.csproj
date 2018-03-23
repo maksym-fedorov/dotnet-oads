@@ -10,6 +10,7 @@
     <AssemblyName>oads-cert</AssemblyName>
     <NoWin32Manifest>True</NoWin32Manifest>
     <OutputPath>$(RepositoryPath)/bin/bin/oads/$(Configuration)/</OutputPath>
+    <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
     <ApplicationIcon />
     <StartupObject />
   </PropertyGroup>

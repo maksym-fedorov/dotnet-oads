@@ -6,7 +6,7 @@ namespace Community.Office.AddinServer.Certificates.Resources
     internal static class Strings
     {
         private static readonly ResourceManager _resourceManager =
-            new ResourceManager(typeof(Strings).Namespace + "." + typeof(Strings).Name, typeof(Strings).Assembly);
+            new ResourceManager(typeof(Strings).Namespace + "." + nameof(Strings), typeof(Strings).Assembly);
 
         /// <summary>Returns the value of the specified string.</summary>
         /// <param name="name">The name of the string to retrieve.</param>

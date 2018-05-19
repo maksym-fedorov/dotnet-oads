@@ -11,7 +11,7 @@ namespace Community.Office.AddinServer.Certificates.Tests
         {
             var manager = new CertificateManager();
             var notBefore = new DateTime(2015, 01, 01, 01, 01, 01, DateTimeKind.Utc);
-            var certificate = manager.CreateDevelopmentCertificate(notBefore);
+            var certificate = manager.CreateDevelopmentCertificate(notBefore, 1);
 
             Assert.NotNull(certificate);
             Assert.Equal(notBefore.Date, certificate.NotBefore.ToUniversalTime());

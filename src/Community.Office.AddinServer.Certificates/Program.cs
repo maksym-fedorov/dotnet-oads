@@ -33,7 +33,7 @@ namespace Community.Office.AddinServer.Certificates
                         {
                             var manager = new CertificateManager();
 
-                            using (var certificate = manager.CreateDevelopmentCertificate(DateTime.UtcNow))
+                            using (var certificate = manager.CreateDevelopmentCertificate(DateTime.UtcNow, 1))
                             {
                                 File.WriteAllBytes(certificateFile, certificate.Export(X509ContentType.Pkcs12));
 

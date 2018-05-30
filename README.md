@@ -1,6 +1,6 @@
 ## Office Add-in Debug Server
 
-Local web server for debugging [Microsoft Office Add-ins](https://docs.microsoft.com/en-us/office/dev/add-ins/overview/office-add-ins) on macOS. The server is based on [.NET Core 2.0](https://www.microsoft.com/net/download/macos) and provides access to static add-in files.
+Local web server for debugging [Microsoft Office Add-ins](https://docs.microsoft.com/en-us/office/dev/add-ins/overview/office-add-ins) on macOS. The server is based on [.NET Core 2.1](https://www.microsoft.com/net/download/macos) and provides access to static add-in files.
 
 ```
 dotnet oads.dll [--server-root <value>] [--server-port <value>] [--log-file <value>]

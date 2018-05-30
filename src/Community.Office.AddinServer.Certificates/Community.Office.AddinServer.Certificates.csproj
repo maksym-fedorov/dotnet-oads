@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Product><![CDATA[Office Add-in Debug Certificate Manager]]></Product>
     <Copyright><![CDATA[© Alexander Kozlenko. All rights reserved.]]></Copyright>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>oads-cert</AssemblyName>
     <NoWin32Manifest>True</NoWin32Manifest>
     <OutputPath>$(RepositoryPath)/bin/bin/oads/$(Configuration)/</OutputPath>
@@ -18,6 +18,6 @@
     <DebugType>none</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="2.1.0" />
   </ItemGroup>
 </Project>

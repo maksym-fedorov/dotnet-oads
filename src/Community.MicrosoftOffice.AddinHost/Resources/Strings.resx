@@ -117,15 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="manager.create.cert_file" xml:space="preserve">
-    <value>Created a certificate at "{0}"</value>
-  </data>
-  <data name="manager.create.cert_period" xml:space="preserve">
-    <value>Certificate period: {0} - {1} (UTC)</value>
-  </data>
-  <data name="manager.create.cert_thumbprint" xml:space="preserve">
-    <value>Certificate thumbprint: {0}</value>
-  </data>
   <data name="program.assembly_info" xml:space="preserve">
     <value>{0} version {1}</value>
   </data>
@@ -135,16 +126,28 @@
   <data name="program.usage_arguments" xml:space="preserve">
     <value>Arguments:</value>
   </data>
-  <data name="program.usage_argument_command" xml:space="preserve">
-    <value>  --command	The command to execute</value>
+  <data name="program.usage_argument_log_file" xml:space="preserve">
+    <value>  --log-file&#x9;The log file path</value>
   </data>
-  <data name="program.usage_argument_cert_file" xml:space="preserve">
-    <value>  --cert-file	The certificate file path</value>
+  <data name="program.usage_argument_server_port" xml:space="preserve">
+    <value>  --server-port&#x9;The server port</value>
+  </data>
+  <data name="program.usage_argument_server_root" xml:space="preserve">
+    <value>  --server-root&#x9;The server root directory</value>
   </data>
   <data name="program.usage_message" xml:space="preserve">
-    <value>Usage: dotnet {0} --command &lt;value&gt; [--cert-file &lt;value&gt;]</value>
+    <value>Usage: dotnet oads [--server-root &lt;value&gt;] [--server-port &lt;value&gt;] [--log-file &lt;value&gt;]</value>
   </data>
-  <data name="program.invalid_parameter" xml:space="preserve">
-    <value>The "{0}" parameter is invalid</value>
+  <data name="resource.undefined" xml:space="preserve">
+    <value>The specified resource "{0}" is not found</value>
+  </data>
+  <data name="server.abort_token" xml:space="preserve">
+    <value>Aborted</value>
+  </data>
+  <data name="server.address_info" xml:space="preserve">
+    <value>Server address: https://localhost{0}</value>
+  </data>
+  <data name="server.root_info" xml:space="preserve">
+    <value>Server root: "{0}"</value>
   </data>
 </root>

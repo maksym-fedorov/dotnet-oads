@@ -1,8 +1,8 @@
 using System;
-using Community.Office.AddinServer.Certificates.Generation;
+using Community.MicrosoftOffice.AddinHost.Certificates;
 using Xunit;
 
-namespace Community.Office.AddinServer.Certificates.Tests
+namespace Community.MicrosoftOffice.AddinHost.Tests
 {
     public sealed class CertificateManagerTests
     {

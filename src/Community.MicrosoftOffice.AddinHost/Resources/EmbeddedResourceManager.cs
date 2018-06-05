@@ -4,7 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace Community.Office.AddinServer.Certificates.Resources
+namespace Community.MicrosoftOffice.AddinHost.Resources
 {
     /// <summary>Represents a resource manager that provides convenient access to embedded resources at run time.</summary>
     internal static class EmbeddedResourceManager

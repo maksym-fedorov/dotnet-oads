@@ -5,14 +5,15 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
-using Community.Office.AddinServer.Data;
-using Community.Office.AddinServer.Resources;
+using Community.MicrosoftOffice.AddinHost.Certificates;
+using Community.MicrosoftOffice.AddinHost.Data;
+using Community.MicrosoftOffice.AddinHost.Resources;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Community.Office.AddinServer
+namespace Community.MicrosoftOffice.AddinHost
 {
     public static class Program
     {
@@ -29,11 +30,9 @@ namespace Community.Office.AddinServer
             Console.WriteLine(assembly.GetCustomAttribute<AssemblyCopyrightAttribute>().Copyright?.Replace("\u00A9", "(c)"));
             Console.WriteLine();
 
-            var assemblyName = Path.GetFileNameWithoutExtension(assembly.Location);
-
             var configurationBuilder = new ConfigurationBuilder()
-                .AddJsonFile(Path.Combine(Path.GetDirectoryName(assembly.Location), assemblyName + ".json"), true, false)
-                .AddJsonFile(Path.Combine(Environment.CurrentDirectory, assemblyName + ".json"), true, false)
+                .AddJsonFile(Path.Combine(Path.GetDirectoryName(assembly.Location), "dotnet-oads.json"), true, false)
+                .AddJsonFile(Path.Combine(Environment.CurrentDirectory, "dotnet-oads.json"), true, false)
                 .AddCommandLine(args);
 
             try
@@ -48,23 +47,26 @@ namespace Community.Office.AddinServer
 
                 var logFileValue = configuration["log-file"];
                 var logFile = logFileValue != null ? Path.GetFullPath(logFileValue) : null;
-                var certificateFile = Path.Combine(Path.GetDirectoryName(assembly.Location), "https.pfx");
+                var certificateFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "dotnet-oads.pfx");
 
                 if (!File.Exists(certificateFile))
                 {
-                    throw new FileNotFoundException(string.Format(CultureInfo.InvariantCulture, Strings.GetString("server.certificate.absent_file"), certificateFile));
+                    using (var certificate = new CertificateManager().CreateDevelopmentCertificate(DateTime.UtcNow, 1))
+                    {
+                        File.WriteAllBytes(certificateFile, certificate.Export(X509ContentType.Pkcs12));
+                    }
                 }
 
-                void ConfigureKestrelAction(KestrelServerOptions kso)
+                void SetupKestrelOptions(KestrelServerOptions options)
                 {
-                    kso.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(new X509Certificate2(certificateFile)));
-                    kso.Limits.KeepAliveTimeout = TimeSpan.FromHours(1);
-                    kso.AddServerHeader = false;
+                    options.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(new X509Certificate2(certificateFile)));
+                    options.Limits.KeepAliveTimeout = TimeSpan.FromHours(1);
+                    options.AddServerHeader = false;
                 }
 
                 var hostBuilder = new WebHostBuilder()
                     .ConfigureServices(sc => sc.Configure<ServerOptions>(so => so.LoggingFilePath = logFile))
-                    .UseKestrel(ConfigureKestrelAction)
+                    .UseKestrel(SetupKestrelOptions)
                     .UseWebRoot(serverRoot)
                     .UseContentRoot(serverRoot)
                     .UseStartup<Startup>();
@@ -100,7 +102,7 @@ namespace Community.Office.AddinServer
                 Console.Error.WriteLine(Strings.GetString("program.error_message"), ex.Message);
                 Console.ForegroundColor = foregroundColor;
                 Console.WriteLine();
-                Console.WriteLine(Strings.GetString("program.usage_message"), Path.GetFileName(assembly.Location));
+                Console.WriteLine(Strings.GetString("program.usage_message"));
                 Console.WriteLine();
                 Console.WriteLine(Strings.GetString("program.usage_arguments"));
                 Console.WriteLine();

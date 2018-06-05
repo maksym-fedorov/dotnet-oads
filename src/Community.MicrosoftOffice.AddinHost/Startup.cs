@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Community.Office.AddinServer.Data;
-using Community.Office.AddinServer.Middleware;
-using Community.Office.AddinServer.Resources;
+using Community.MicrosoftOffice.AddinHost.Data;
+using Community.MicrosoftOffice.AddinHost.Middleware;
+using Community.MicrosoftOffice.AddinHost.Resources;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 
-namespace Community.Office.AddinServer
+namespace Community.MicrosoftOffice.AddinHost
 {
     /// <summary>Represents server startup logic.</summary>
     internal sealed class Startup : IStartup

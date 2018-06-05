@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Community.Office.AddinServer.Resources;
+using Community.MicrosoftOffice.AddinHost.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Serilog;
 using Serilog.Events;
 
-namespace Community.Office.AddinServer.Middleware
+namespace Community.MicrosoftOffice.AddinHost.Middleware
 {
     /// <summary>Represents request tracking middleware.</summary>
     public sealed class RequestTracingMiddleware : IMiddleware

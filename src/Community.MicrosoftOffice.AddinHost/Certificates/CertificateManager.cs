@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Community.Office.AddinServer.Certificates.Generation
+namespace Community.MicrosoftOffice.AddinHost.Certificates
 {
     /// <summary>Represents office add-in development certificate manager.</summary>
     public sealed class CertificateManager
@@ -15,7 +15,7 @@ namespace Community.Office.AddinServer.Certificates.Generation
         {
             using (var key = RSA.Create(2048))
             {
-                var request = new CertificateRequest("CN=DO_NOT_TRUST_OFFICE_ADDIN_DEBUG", key, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+                var request = new CertificateRequest("CN=DO_NOT_TRUST_OFFICE_ADDIN_TESTING", key, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
                 var sanBuilder = new SubjectAlternativeNameBuilder();
 
                 sanBuilder.AddDnsName("localhost");

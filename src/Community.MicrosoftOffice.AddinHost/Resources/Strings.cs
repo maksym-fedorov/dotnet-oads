@@ -1,6 +1,6 @@
 ﻿using System.Resources;
 
-namespace Community.Office.AddinServer.Resources
+namespace Community.MicrosoftOffice.AddinHost.Resources
 {
     /// <summary>Represents a strings resource manager.</summary>
     internal static class Strings

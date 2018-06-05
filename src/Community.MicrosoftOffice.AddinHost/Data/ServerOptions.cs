@@ -1,4 +1,4 @@
-﻿namespace Community.Office.AddinServer.Data
+﻿namespace Community.MicrosoftOffice.AddinHost.Data
 {
     /// <summary>Provides the server options.</summary>
     internal sealed class ServerOptions

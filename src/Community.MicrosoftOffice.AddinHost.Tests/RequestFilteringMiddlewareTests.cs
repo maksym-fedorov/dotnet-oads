@@ -1,13 +1,13 @@
 using System.Net;
 using System.Net.Http;
-using Community.Office.AddinServer.Middleware;
+using Community.MicrosoftOffice.AddinHost.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace Community.Office.AddinServer.Tests
+namespace Community.MicrosoftOffice.AddinHost.Tests
 {
     public sealed class RequestFilteringMiddlewareTests
     {

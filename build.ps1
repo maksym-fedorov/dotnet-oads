@@ -25,6 +25,5 @@ execute { dotnet build "$sources" -c $configuration };
 foreach ($project in (get-childitem -path "$sources" -file -include "*.Tests.csproj" -recurse)) {
     execute { dotnet test "$project" -c $configuration --no-restore --no-build };
 }
-foreach ($project in (get-childitem -path "$sources" -file -include "*.csproj" -exclude "*.Tests.csproj" -recurse)) {
-    execute { dotnet publish "$project" -c $configuration --no-restore };
-}
+
+execute { dotnet pack "$sources" -c $configuration --no-restore --no-build };

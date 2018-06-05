@@ -1,18 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>1.1.8</Version>
-    <Product><![CDATA[Office Add-in Debug Server]]></Product>
+    <Version>1.2.0</Version>
+    <Description><![CDATA[A .NET Core Global Tool for hosting Microsoft Office Add-ins during development]]></Description>
+    <Authors><![CDATA[Alexander Kozlenko]]></Authors>
     <Copyright><![CDATA[© Alexander Kozlenko. All rights reserved.]]></Copyright>
+    <PackageTags><![CDATA[office add-in server]]></PackageTags>
+    <PackageProjectUrl>https://github.com/alexanderkozlenko/dotnet-oads</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.github.com/alexanderkozlenko/dotnet-oads/master/LICENSE</PackageLicenseUrl>
+    <PackageId>dotnet-oads</PackageId>
+    <Product><![CDATA[Microsoft Office Add-in Development Server]]></Product>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <AssemblyName>oads</AssemblyName>
     <NoWin32Manifest>true</NoWin32Manifest>
-    <OutputPath>$(RepositoryPath)\bin\bin\oads\$(Configuration)\</OutputPath>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>$(RepositoryPath)\bin\bin\$(AssemblyName)\$(Configuration)\</OutputPath>
     <ApplicationIcon />
     <StartupObject />
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>dotnet-oads</ToolCommandName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <DebugType>none</DebugType>

@@ -2,6 +2,8 @@
 
 A .NET Core [Global Tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) for hosting static [Microsoft Office Add-ins](https://docs.microsoft.com/en-us/office/dev/add-ins/overview/office-add-ins) files during development. 
 
+[![NuGet package](https://img.shields.io/nuget/v/dotnet-oads.svg?style=flat-square)](https://www.nuget.org/packages/dotnet-oads)
+
 ```
 dotnet oads [--server-root <value>] [--server-port <value>] [--log-file <value>]
 ```

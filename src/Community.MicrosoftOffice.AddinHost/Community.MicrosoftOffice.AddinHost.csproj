@@ -1,30 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDirectory)\$(MSBuildProjectName).Package.props" />
   <PropertyGroup>
-    <Version>1.2.2</Version>
-    <Description><![CDATA[A .NET Core Global Tool for hosting Microsoft Office Add-ins during development]]></Description>
-    <Authors><![CDATA[Alexander Kozlenko]]></Authors>
-    <Copyright><![CDATA[© Alexander Kozlenko. All rights reserved.]]></Copyright>
-    <PackageTags><![CDATA[office add-in server]]></PackageTags>
-    <PackageProjectUrl>https://github.com/alexanderkozlenko/dotnet-oads</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.github.com/alexanderkozlenko/dotnet-oads/master/LICENSE</PackageLicenseUrl>
-    <PackageId>dotnet-oads</PackageId>
-    <Product><![CDATA[Microsoft Office Add-in Development Server]]></Product>
-  </PropertyGroup>
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <OutputType>Exe</OutputType>
     <NoWin32Manifest>true</NoWin32Manifest>
-    <OutputPath>$(RepositoryPath)\bin\bin\$(AssemblyName)\$(Configuration)\</OutputPath>
     <ApplicationIcon />
     <StartupObject />
     <PackAsTool>true</PackAsTool>
+    <PackageId>dotnet-oads</PackageId>
     <ToolCommandName>dotnet-oads</ToolCommandName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <DebugType>none</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include=".\Assets\**\*" />
+    <EmbeddedResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.1.1" />
@@ -39,4 +29,5 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="4.0.0" />
   </ItemGroup>
+  <Import Project="$(SolutionDirectory)\$(MSBuildProjectName).Package.targets" />
 </Project>

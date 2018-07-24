@@ -1,18 +1,20 @@
 ﻿using System.Net.Http;
+using System.Threading.Tasks;
 using Community.MicrosoftOffice.AddinHost.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Xunit;
 
-namespace Community.MicrosoftOffice.AddinHost.Tests
+namespace Community.MicrosoftOffice.AddinHost.IntegrationTests
 {
+    [TestClass]
     public sealed class RequestTracingMiddlewareTests
     {
-        [Fact]
-        public async void Trace()
+        [TestMethod]
+        public async Task Trace()
         {
             var loggerMock = new Mock<Serilog.ILogger>(MockBehavior.Strict);
 

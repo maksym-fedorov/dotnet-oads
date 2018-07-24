@@ -1,4 +1,6 @@
-﻿namespace Community.MicrosoftOffice.AddinHost.Data
+﻿// © Alexander Kozlenko. Licensed under the MIT License.
+
+namespace Community.MicrosoftOffice.AddinHost.Data
 {
     /// <summary>Provides the server options.</summary>
     internal sealed class ServerOptions

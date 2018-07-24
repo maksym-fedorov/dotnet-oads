@@ -1,4 +1,6 @@
-﻿using System.Resources;
+﻿// © Alexander Kozlenko. Licensed under the MIT License.
+
+using System.Resources;
 
 namespace Community.MicrosoftOffice.AddinHost.Resources
 {

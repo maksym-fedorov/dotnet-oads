@@ -1,4 +1,6 @@
-﻿using System;
+﻿// © Alexander Kozlenko. Licensed under the MIT License.
+
+using System;
 using System.Threading.Tasks;
 using Community.MicrosoftOffice.AddinHost.Resources;
 using Microsoft.AspNetCore.Http;

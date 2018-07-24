@@ -26,13 +26,13 @@ Run parameters can be provided via via the `dotnet-oads.json` file located in th
 
 The server uses an HTTPS certificate named `dotnet-oads.pfx` without password located in the local application data directory (a new one will be generated if it does not exist).
 
-### Specifics
+### Characteristics
 
 - Only `GET` requests are supported.
 - Connection keep-alive timeout is `60` minutes.
 - Configuration file in the current directory has higher priority.
 
-### Examples
+### Usage Examples
 
 ```
 dotnet tool install --global dotnet-oads

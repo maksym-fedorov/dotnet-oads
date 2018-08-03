@@ -9,6 +9,7 @@
     <PackAsTool>true</PackAsTool>
     <PackageId>dotnet-oads</PackageId>
     <ToolCommandName>dotnet-oads</ToolCommandName>
+    <TieredCompilation>true</TieredCompilation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <DebugType>none</DebugType>

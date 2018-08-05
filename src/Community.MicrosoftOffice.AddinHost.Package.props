@@ -1,6 +1,6 @@
 ﻿<Project>
   <PropertyGroup>
-    <Version>1.2.2</Version>
+    <Version>1.2.3</Version>
     <Product><![CDATA[Microsoft Office Add-in Development Server]]></Product>
     <PackageProjectUrl>https://github.com/alexanderkozlenko/dotnet-oads</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.github.com/alexanderkozlenko/dotnet-oads/master/LICENSE</PackageLicenseUrl>

@@ -6,6 +6,7 @@
     <NoWin32Manifest>true</NoWin32Manifest>
     <ApplicationIcon />
     <StartupObject />
+    <IsPackable>true</IsPackable>
     <PackAsTool>true</PackAsTool>
     <PackageId>dotnet-oads</PackageId>
     <ToolCommandName>dotnet-oads</ToolCommandName>

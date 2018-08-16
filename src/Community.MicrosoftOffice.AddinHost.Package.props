@@ -1,9 +1,12 @@
 ﻿<Project>
   <PropertyGroup>
-    <Version>1.2.3</Version>
+    <Version>1.2.4</Version>
     <Product><![CDATA[Microsoft Office Add-in Development Server]]></Product>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/alexanderkozlenko/dotnet-oads.git</RepositoryUrl>
+    <RepositoryBranch>master</RepositoryBranch>
     <PackageProjectUrl>https://github.com/alexanderkozlenko/dotnet-oads</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.github.com/alexanderkozlenko/dotnet-oads/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl>https://raw.github.com/alexanderkozlenko/dotnet-oads/$(RepositoryBranch)/LICENSE</PackageLicenseUrl>
     <Authors><![CDATA[Alexander Kozlenko]]></Authors>
     <Copyright><![CDATA[© Alexander Kozlenko. All rights reserved.]]></Copyright>
     <Description><![CDATA[A .NET Core Global Tool for hosting Microsoft Office Add-ins during development]]></Description>

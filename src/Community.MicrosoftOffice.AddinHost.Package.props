@@ -1,6 +1,6 @@
 ﻿<Project>
   <PropertyGroup>
-    <Version>1.2.4</Version>
+    <Version>1.2.5</Version>
     <Product><![CDATA[Microsoft Office Add-in Development Server]]></Product>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/alexanderkozlenko/dotnet-oads.git</RepositoryUrl>

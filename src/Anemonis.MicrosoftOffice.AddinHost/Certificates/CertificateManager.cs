@@ -4,7 +4,7 @@ using System;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Community.MicrosoftOffice.AddinHost.Certificates
+namespace Anemonis.MicrosoftOffice.AddinHost.Certificates
 {
     /// <summary>Represents office add-in development certificate manager.</summary>
     public sealed class CertificateManager

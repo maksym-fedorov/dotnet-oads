@@ -2,7 +2,7 @@
 
 using System.Resources;
 
-namespace Community.MicrosoftOffice.AddinHost.Resources
+namespace Anemonis.MicrosoftOffice.AddinHost.Resources
 {
     /// <summary>Represents a strings resource manager.</summary>
     internal static class Strings

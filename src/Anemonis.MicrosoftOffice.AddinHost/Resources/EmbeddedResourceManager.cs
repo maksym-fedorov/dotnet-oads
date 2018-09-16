@@ -6,7 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace Community.MicrosoftOffice.AddinHost.Resources
+namespace Anemonis.MicrosoftOffice.AddinHost.Resources
 {
     /// <summary>Represents a resource manager that provides convenient access to embedded resources at run time.</summary>
     internal static class EmbeddedResourceManager

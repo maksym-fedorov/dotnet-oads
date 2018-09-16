@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 
-namespace Community.MicrosoftOffice.AddinHost.Middleware
+namespace Anemonis.MicrosoftOffice.AddinHost.Middleware
 {
     /// <summary>Represents request filtering middleware.</summary>
     public sealed class RequestFilteringMiddleware : IMiddleware

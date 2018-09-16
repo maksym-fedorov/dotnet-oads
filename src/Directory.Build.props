@@ -9,7 +9,6 @@
     <IsTestable>false</IsTestable>
     <HighEntropyVA>true</HighEntropyVA>
     <TieredCompilation>true</TieredCompilation>
-    <AssemblyOriginatorKeyFile>$(SolutionDirectory)\Open.snk</AssemblyOriginatorKeyFile>
     <BaseIntermediateOutputPath>$(RepositoryDirectory)obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
     <BaseOutputPath>$(RepositoryDirectory)bin\$(MSBuildProjectName)</BaseOutputPath>
     <VSTestResultsDirectory Condition="'$(VSTestResultsDirectory)' == ''">$(BaseOutputPath)\$(Configuration)</VSTestResultsDirectory>

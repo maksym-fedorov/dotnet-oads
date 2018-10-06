@@ -3,7 +3,6 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Primitives;
 
 namespace Anemonis.MicrosoftOffice.AddinHost.Middleware
 {
@@ -17,7 +16,7 @@ namespace Anemonis.MicrosoftOffice.AddinHost.Middleware
 
         Task IMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            if (!StringSegment.Equals(context.Request.Method, HttpMethods.Get, StringComparison.OrdinalIgnoreCase))
+            if (!string.Equals(context.Request.Method, HttpMethods.Get, StringComparison.OrdinalIgnoreCase))
             {
                 context.Response.StatusCode = StatusCodes.Status405MethodNotAllowed;
 

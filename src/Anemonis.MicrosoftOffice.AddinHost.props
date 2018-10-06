@@ -1,7 +1,7 @@
 ﻿<!-- © Alexander Kozlenko. Licensed under the MIT License. -->
 <Project>
   <PropertyGroup>
-    <VersionPrefix>1.2.6</VersionPrefix>
+    <VersionPrefix>1.2.7</VersionPrefix>
     <VersionSuffix></VersionSuffix>
   </PropertyGroup>
   <PropertyGroup>
@@ -11,6 +11,6 @@
     <Authors><![CDATA[Alexander Kozlenko]]></Authors>
     <Copyright><![CDATA[© $(Authors). All rights reserved.]]></Copyright>
     <Description><![CDATA[A .NET Core Global Tool for hosting Microsoft Office Add-ins during development]]></Description>
-    <PackageTags><![CDATA[office add-in server]]></PackageTags>
+    <PackageTags><![CDATA[office add-in server debug]]></PackageTags>
   </PropertyGroup>
 </Project>

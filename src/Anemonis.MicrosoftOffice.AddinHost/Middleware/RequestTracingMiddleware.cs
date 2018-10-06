@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Anemonis.MicrosoftOffice.AddinHost.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Serilog;
@@ -30,32 +29,15 @@ namespace Anemonis.MicrosoftOffice.AddinHost.Middleware
 
         async Task IMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            await next.Invoke(context);
-
-            if (!context.RequestAborted.IsCancellationRequested)
+            try
+            {
+                await next.Invoke(context);
+            }
+            finally
             {
                 var level = context.Response.StatusCode < StatusCodes.Status400BadRequest ? LogEventLevel.Information : LogEventLevel.Error;
 
-                var values = new object[]
-                {
-                    context.Response.StatusCode,
-                    context.Request.Method,
-                    context.Request.GetEncodedPathAndQuery()
-                };
-
-                _logger.Write(level, "{0} {1} {2}", values);
-            }
-            else
-            {
-                var values = new object[]
-                {
-                    context.Response.StatusCode,
-                    context.Request.Method,
-                    context.Request.GetEncodedPathAndQuery(),
-                    Strings.GetString("server.abort_token").ToUpperInvariant()
-                };
-
-                _logger.Write(LogEventLevel.Error, "{0} {1} {2} {3}", values);
+                _logger.Write(level, "{0} {1} {2}", context.Response.StatusCode, context.Request.Method, context.Request.GetEncodedPathAndQuery());
             }
         }
     }

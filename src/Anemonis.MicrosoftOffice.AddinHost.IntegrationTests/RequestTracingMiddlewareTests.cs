@@ -18,7 +18,7 @@ namespace Anemonis.MicrosoftOffice.AddinHost.IntegrationTests
         {
             var loggerMock = new Mock<Serilog.ILogger>(MockBehavior.Strict);
 
-            loggerMock.Setup(o => o.Write(It.IsAny<Serilog.Events.LogEventLevel>(), It.IsAny<string>(), It.IsAny<object[]>()));
+            loggerMock.Setup(o => o.Write(It.IsAny<Serilog.Events.LogEventLevel>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>()));
 
             var builder = new WebHostBuilder()
                 .ConfigureServices(sc => sc
@@ -36,7 +36,7 @@ namespace Anemonis.MicrosoftOffice.AddinHost.IntegrationTests
                 }
             }
 
-            loggerMock.Verify(o => o.Write(It.IsAny<Serilog.Events.LogEventLevel>(), It.IsAny<string>(), It.IsAny<object[]>()), Times.Exactly(1));
+            loggerMock.Verify(o => o.Write(It.IsAny<Serilog.Events.LogEventLevel>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(1));
         }
     }
 }

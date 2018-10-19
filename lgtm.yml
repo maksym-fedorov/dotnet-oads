@@ -1,6 +1,8 @@
 # © Alexander Kozlenko. Licensed under the MIT License.
 
 path_classifiers:
+  library:
+    - exclude: "**/*.html"
   test:
     - "**/*Benchmarks.cs"
 extraction:

@@ -50,18 +50,22 @@ namespace Anemonis.MicrosoftOffice.AddinHost
                 var logFileValue = configuration["log-file"];
                 var logFile = logFileValue != null ? Path.GetFullPath(logFileValue) : null;
                 var certificateFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "dotnet-oads.pfx");
+                var certificate = default(X509Certificate2);
 
-                if (!File.Exists(certificateFile))
+                if (File.Exists(certificateFile))
                 {
-                    using (var certificate = new CertificateManager().CreateDevelopmentCertificate(DateTime.UtcNow, 1))
-                    {
-                        File.WriteAllBytes(certificateFile, certificate.Export(X509ContentType.Pkcs12));
-                    }
+                    certificate = new X509Certificate2(certificateFile);
+                }
+                else
+                {
+                    certificate = new CertificateManager().CreateDevelopmentCertificate(DateTime.UtcNow, DateTime.UtcNow.AddYears(1) - DateTime.UtcNow);
+
+                    File.WriteAllBytes(certificateFile, certificate.Export(X509ContentType.Pkcs12));
                 }
 
                 void SetupKestrelOptions(KestrelServerOptions options)
                 {
-                    options.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(new X509Certificate2(certificateFile)));
+                    options.Listen(IPAddress.Loopback, serverPort, lo => lo.UseHttps(certificate));
                     options.Limits.KeepAliveTimeout = TimeSpan.FromHours(1);
                     options.AddServerHeader = false;
                 }
@@ -87,9 +91,10 @@ namespace Anemonis.MicrosoftOffice.AddinHost
 
                     var applicationLifetime = host.Services.GetRequiredService<IApplicationLifetime>();
 
-                    _cancellationTokenSource.Token.Register(state => ((IApplicationLifetime)state).StopApplication(), applicationLifetime);
+                    _cancellationTokenSource.Token.Register(s => ((IApplicationLifetime)s).StopApplication(), applicationLifetime);
 
                     applicationLifetime.ApplicationStopping.WaitHandle.WaitOne();
+                    certificate.Dispose();
                 }
 
                 _resetEvent.Set();

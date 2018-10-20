@@ -11,9 +11,9 @@ namespace Anemonis.MicrosoftOffice.AddinHost.Certificates
     {
         /// <summary>Creates a development certificate.</summary>
         /// <param name="notBefore">The date on which a certificate becomes valid.</param>
-        /// <param name="years">The number of years for a certificate to be valid.</param>
+        /// <param name="period">The period of time for a certificate to be valid.</param>
         /// <returns>The X.509 certificate.</returns>
-        public X509Certificate2 CreateDevelopmentCertificate(DateTime notBefore, byte years)
+        public X509Certificate2 CreateDevelopmentCertificate(DateTime notBefore, TimeSpan period)
         {
             using (var key = RSA.Create(2048))
             {
@@ -27,7 +27,7 @@ namespace Anemonis.MicrosoftOffice.AddinHost.Certificates
                 request.CertificateExtensions.Add(new X509KeyUsageExtension(X509KeyUsageFlags.KeyEncipherment, true));
                 request.CertificateExtensions.Add(new X509EnhancedKeyUsageExtension(new OidCollection { new Oid("1.3.6.1.5.5.7.3.1") }, true));
 
-                return request.CreateSelfSigned(notBefore.ToUniversalTime().Date, notBefore.ToUniversalTime().Date.AddYears(years));
+                return request.CreateSelfSigned(notBefore.ToUniversalTime().Date, notBefore.ToUniversalTime().Date.Add(period));
             }
         }
     }

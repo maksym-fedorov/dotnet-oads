@@ -1,7 +1,7 @@
 ﻿<!-- © Alexander Kozlenko. Licensed under the MIT License. -->
 <Project>
   <PropertyGroup>
-    <VersionPrefix>1.2.7</VersionPrefix>
+    <VersionPrefix>1.2.8</VersionPrefix>
     <VersionSuffix></VersionSuffix>
   </PropertyGroup>
   <PropertyGroup>

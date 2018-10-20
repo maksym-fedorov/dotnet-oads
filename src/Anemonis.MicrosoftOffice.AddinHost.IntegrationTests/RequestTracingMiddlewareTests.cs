@@ -33,6 +33,9 @@ namespace Anemonis.MicrosoftOffice.AddinHost.IntegrationTests
                 {
                     var request = new HttpRequestMessage(HttpMethod.Get, server.BaseAddress);
                     var response = await client.SendAsync(request);
+
+                    response.Dispose();
+                    request.Dispose();
                 }
             }
 

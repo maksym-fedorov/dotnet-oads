@@ -37,7 +37,7 @@ namespace Anemonis.MicrosoftOffice.AddinHost.Middleware
             {
                 var level = context.Response.StatusCode < StatusCodes.Status400BadRequest ? LogEventLevel.Information : LogEventLevel.Error;
 
-                _logger.Write(level, "{0} {1} {2}", context.Response.StatusCode, context.Request.Method, context.Request.GetEncodedPathAndQuery());
+                _logger.Write(level, "{0} {1}", context.Response.StatusCode, context.Request.GetEncodedPathAndQuery());
             }
         }
     }

@@ -6,9 +6,7 @@
           Condition="'$(IsPackable)' == 'true'">
     <PropertyGroup>
       <PackageProjectUrl>%(SourceRoot.RepositoryUrl)</PackageProjectUrl>
-      <PackageLicenseUrl>%(SourceRoot.SourceLinkUrl)</PackageLicenseUrl>
       <PackageProjectUrl>$(PackageProjectUrl.Replace('.git', ''))</PackageProjectUrl>
-      <PackageLicenseUrl>$(PackageLicenseUrl.Replace('*', 'LICENSE'))</PackageLicenseUrl>
     </PropertyGroup>
   </Target>
   <Target Name="Test"

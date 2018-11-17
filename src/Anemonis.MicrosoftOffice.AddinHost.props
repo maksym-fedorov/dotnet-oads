@@ -1,12 +1,13 @@
 ﻿<!-- © Alexander Kozlenko. Licensed under the MIT License. -->
 <Project>
   <PropertyGroup>
-    <VersionPrefix>1.2.8</VersionPrefix>
-    <VersionSuffix></VersionSuffix>
+    <VersionPrefix>1.2.9</VersionPrefix>
+    <VersionSuffix>beta</VersionSuffix>
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>dotnet-oads</PackageId>
     <ToolCommandName>$(PackageId)</ToolCommandName>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Product><![CDATA[Microsoft Office Add-in Development Server]]></Product>
     <Authors><![CDATA[Alexander Kozlenko]]></Authors>
     <Copyright><![CDATA[© $(Authors). All rights reserved.]]></Copyright>

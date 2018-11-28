@@ -2,7 +2,7 @@
 <Project>
   <PropertyGroup>
     <VersionPrefix>1.2.9</VersionPrefix>
-    <VersionSuffix>beta</VersionSuffix>
+    <VersionSuffix></VersionSuffix>
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>dotnet-oads</PackageId>

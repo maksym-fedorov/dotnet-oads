@@ -1,6 +1,4 @@
-﻿// © Alexander Kozlenko. Licensed under the MIT License.
-
-using System.Resources;
+﻿using System.Resources;
 
 namespace Anemonis.MicrosoftOffice.AddinHost.Resources
 {

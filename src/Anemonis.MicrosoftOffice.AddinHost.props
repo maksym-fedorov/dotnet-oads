@@ -1,17 +1,8 @@
-﻿<!-- © Alexander Kozlenko. Licensed under the MIT License. -->
-<Project>
+﻿<Project>
   <PropertyGroup>
-    <VersionPrefix>1.2.9</VersionPrefix>
-    <VersionSuffix></VersionSuffix>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PackageId>dotnet-oads</PackageId>
-    <ToolCommandName>$(PackageId)</ToolCommandName>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Version>1.2.9</Version>
     <Product><![CDATA[Microsoft Office Add-in Development Server]]></Product>
-    <Authors><![CDATA[Alexander Kozlenko]]></Authors>
-    <Copyright><![CDATA[© $(Authors). All rights reserved.]]></Copyright>
-    <Description><![CDATA[A .NET Core Global Tool for hosting Microsoft Office Add-ins during development]]></Description>
-    <PackageTags><![CDATA[office add-in server debug]]></PackageTags>
+    <Copyright><![CDATA[© Maksym Fedorov. All rights reserved.]]></Copyright>
+    <Description><![CDATA[A tool for hosting Microsoft Office Add-ins during development]]></Description>
   </PropertyGroup>
 </Project>

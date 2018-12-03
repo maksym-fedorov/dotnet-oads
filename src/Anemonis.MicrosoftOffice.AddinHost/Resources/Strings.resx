@@ -136,7 +136,7 @@
     <value>  --server-root&#x9;The server root directory</value>
   </data>
   <data name="program.usage_message" xml:space="preserve">
-    <value>Usage: dotnet oads [--server-root &lt;value&gt;] [--server-port &lt;value&gt;] [--log-file &lt;value&gt;]</value>
+    <value>Usage: dotnet oads.dll [--server-root &lt;value&gt;] [--server-port &lt;value&gt;] [--log-file &lt;value&gt;]</value>
   </data>
   <data name="resource.undefined" xml:space="preserve">
     <value>The specified resource "{0}" is not found</value>

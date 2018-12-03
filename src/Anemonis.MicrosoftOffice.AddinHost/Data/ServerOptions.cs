@@ -1,6 +1,4 @@
-﻿// © Alexander Kozlenko. Licensed under the MIT License.
-
-namespace Anemonis.MicrosoftOffice.AddinHost.Data
+﻿namespace Anemonis.MicrosoftOffice.AddinHost.Data
 {
     /// <summary>Provides the server options.</summary>
     internal sealed class ServerOptions

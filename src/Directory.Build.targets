@@ -1,14 +1,4 @@
-﻿<!-- © Alexander Kozlenko. Licensed under the MIT License. -->
-<Project>
-  <Target Name="InitializePackageUrls"
-          DependsOnTargets="$(SourceLinkUrlInitializerTargets)"
-          BeforeTargets="GenerateNuspec"
-          Condition="'$(IsPackable)' == 'true'">
-    <PropertyGroup>
-      <PackageProjectUrl>%(SourceRoot.RepositoryUrl)</PackageProjectUrl>
-      <PackageProjectUrl>$(PackageProjectUrl.Replace('.git', ''))</PackageProjectUrl>
-    </PropertyGroup>
-  </Target>
+﻿<Project>
   <Target Name="Test"
           Condition="'$(IsTestable)' == 'true'">
     <CallTarget Targets="VSTest" />

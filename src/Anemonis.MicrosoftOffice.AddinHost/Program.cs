@@ -1,6 +1,4 @@
-﻿// © Alexander Kozlenko. Licensed under the MIT License.
-
-using System;
+﻿using System;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -33,8 +31,8 @@ namespace Anemonis.MicrosoftOffice.AddinHost
             Console.WriteLine();
 
             var configurationBuilder = new ConfigurationBuilder()
-                .AddJsonFile(Path.Combine(Path.GetDirectoryName(assembly.Location), "dotnet-oads.json"), true, false)
-                .AddJsonFile(Path.Combine(Environment.CurrentDirectory, "dotnet-oads.json"), true, false)
+                .AddJsonFile(Path.Combine(Path.GetDirectoryName(assembly.Location), "oads.json"), true, false)
+                .AddJsonFile(Path.Combine(Environment.CurrentDirectory, "oads.json"), true, false)
                 .AddCommandLine(args);
 
             try
@@ -49,7 +47,7 @@ namespace Anemonis.MicrosoftOffice.AddinHost
 
                 var logFileValue = configuration["log-file"];
                 var logFile = logFileValue != null ? Path.GetFullPath(logFileValue) : null;
-                var certificateFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "dotnet-oads.pfx");
+                var certificateFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "oads.pfx");
                 var certificate = default(X509Certificate2);
 
                 if (File.Exists(certificateFile))

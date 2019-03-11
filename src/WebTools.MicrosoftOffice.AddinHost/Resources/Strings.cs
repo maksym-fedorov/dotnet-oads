@@ -1,6 +1,6 @@
 ﻿using System.Resources;
 
-namespace Anemonis.MicrosoftOffice.AddinHost.Resources
+namespace WebTools.MicrosoftOffice.AddinHost.Resources
 {
     /// <summary>Represents a strings resource manager.</summary>
     internal static class Strings

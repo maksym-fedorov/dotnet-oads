@@ -1,4 +1,4 @@
-﻿namespace Anemonis.MicrosoftOffice.AddinHost.Data
+﻿namespace WebTools.MicrosoftOffice.AddinHost.Data
 {
     /// <summary>Provides the server options.</summary>
     internal sealed class ServerOptions

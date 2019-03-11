@@ -5,15 +5,15 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
-using Anemonis.MicrosoftOffice.AddinHost.Certificates;
-using Anemonis.MicrosoftOffice.AddinHost.Data;
-using Anemonis.MicrosoftOffice.AddinHost.Resources;
+using WebTools.MicrosoftOffice.AddinHost.Certificates;
+using WebTools.MicrosoftOffice.AddinHost.Data;
+using WebTools.MicrosoftOffice.AddinHost.Resources;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Anemonis.MicrosoftOffice.AddinHost
+namespace WebTools.MicrosoftOffice.AddinHost
 {
     public static class Program
     {

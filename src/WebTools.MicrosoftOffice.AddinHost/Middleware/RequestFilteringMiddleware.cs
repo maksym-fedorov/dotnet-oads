@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Anemonis.MicrosoftOffice.AddinHost.Middleware
+namespace WebTools.MicrosoftOffice.AddinHost.Middleware
 {
     /// <summary>Represents request filtering middleware.</summary>
     public sealed class RequestFilteringMiddleware : IMiddleware

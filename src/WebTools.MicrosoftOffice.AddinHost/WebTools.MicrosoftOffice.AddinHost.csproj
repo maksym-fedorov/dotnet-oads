@@ -7,6 +7,7 @@
     <ApplicationIcon />
     <StartupObject />
     <AssemblyName>oads</AssemblyName>
+    <RootNamespace>WebTools.MicrosoftOffice.AddinHost</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <DebugType>none</DebugType>

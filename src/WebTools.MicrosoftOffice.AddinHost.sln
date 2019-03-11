@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28705.295
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anemonis.MicrosoftOffice.AddinHost", "Anemonis.MicrosoftOffice.AddinHost\Anemonis.MicrosoftOffice.AddinHost.csproj", "{4A35515D-A5EE-48DF-900D-BDCBA94B8B92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebTools.MicrosoftOffice.AddinHost", "WebTools.MicrosoftOffice.AddinHost\WebTools.MicrosoftOffice.AddinHost.csproj", "{4A35515D-A5EE-48DF-900D-BDCBA94B8B92}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anemonis.MicrosoftOffice.AddinHost.IntegrationTests", "Anemonis.MicrosoftOffice.AddinHost.IntegrationTests\Anemonis.MicrosoftOffice.AddinHost.IntegrationTests.csproj", "{8623EDD2-708D-497A-9FAF-5A5AB63E124F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebTools.MicrosoftOffice.AddinHost.IntegrationTests", "WebTools.MicrosoftOffice.AddinHost.IntegrationTests\WebTools.MicrosoftOffice.AddinHost.IntegrationTests.csproj", "{8623EDD2-708D-497A-9FAF-5A5AB63E124F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution.Build", "Solution.Build", "{E0E8DF42-436F-42B4-BA73-5B4D9542F891}"
 	ProjectSection(SolutionItems) = preProject
-		Anemonis.MicrosoftOffice.AddinHost.props = Anemonis.MicrosoftOffice.AddinHost.props
 		Directory.Build.props = Directory.Build.props
 		Directory.Build.targets = Directory.Build.targets
+		WebTools.MicrosoftOffice.AddinHost.props = WebTools.MicrosoftOffice.AddinHost.props
 	EndProjectSection
 EndProject
 Global

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Anemonis.MicrosoftOffice.AddinHost.Data;
-using Anemonis.MicrosoftOffice.AddinHost.Middleware;
-using Anemonis.MicrosoftOffice.AddinHost.Resources;
+using WebTools.MicrosoftOffice.AddinHost.Data;
+using WebTools.MicrosoftOffice.AddinHost.Middleware;
+using WebTools.MicrosoftOffice.AddinHost.Resources;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 
-namespace Anemonis.MicrosoftOffice.AddinHost
+namespace WebTools.MicrosoftOffice.AddinHost
 {
     /// <summary>Represents server startup logic.</summary>
     internal sealed class Startup : IStartup

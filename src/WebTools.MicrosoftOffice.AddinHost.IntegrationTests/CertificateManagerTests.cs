@@ -1,8 +1,8 @@
 using System;
-using Anemonis.MicrosoftOffice.AddinHost.Certificates;
+using WebTools.MicrosoftOffice.AddinHost.Certificates;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Anemonis.MicrosoftOffice.AddinHost.IntegrationTests
+namespace WebTools.MicrosoftOffice.AddinHost.IntegrationTests
 {
     [TestClass]
     public sealed class CertificateManagerTests

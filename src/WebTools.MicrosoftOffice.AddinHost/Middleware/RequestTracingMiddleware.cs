@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Serilog;
 using Serilog.Events;
 
-namespace Anemonis.MicrosoftOffice.AddinHost.Middleware
+namespace WebTools.MicrosoftOffice.AddinHost.Middleware
 {
     /// <summary>Represents request tracking middleware.</summary>
     public sealed class RequestTracingMiddleware : IMiddleware

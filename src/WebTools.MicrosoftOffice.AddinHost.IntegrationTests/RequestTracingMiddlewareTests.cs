@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using Anemonis.MicrosoftOffice.AddinHost.Middleware;
+using WebTools.MicrosoftOffice.AddinHost.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Anemonis.MicrosoftOffice.AddinHost.IntegrationTests
+namespace WebTools.MicrosoftOffice.AddinHost.IntegrationTests
 {
     [TestClass]
     public sealed class RequestTracingMiddlewareTests

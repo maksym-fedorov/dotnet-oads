@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebTools.MicrosoftOffice.AddinHost.Data;
-using WebTools.MicrosoftOffice.AddinHost.Middleware;
-using WebTools.MicrosoftOffice.AddinHost.Resources;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -11,8 +9,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
+
+using WebTools.MicrosoftOffice.AddinHost.Data;
+using WebTools.MicrosoftOffice.AddinHost.Middleware;
+using WebTools.MicrosoftOffice.AddinHost.Resources;
 
 namespace WebTools.MicrosoftOffice.AddinHost
 {

@@ -1,12 +1,15 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using WebTools.MicrosoftOffice.AddinHost.Middleware;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Moq;
+
+using WebTools.MicrosoftOffice.AddinHost.Middleware;
 
 namespace WebTools.MicrosoftOffice.AddinHost.IntegrationTests
 {
@@ -27,17 +30,10 @@ namespace WebTools.MicrosoftOffice.AddinHost.IntegrationTests
                 .Configure(ab => ab
                     .UseMiddleware<RequestTracingMiddleware>());
 
-            using (var server = new TestServer(builder))
-            {
-                using (var client = server.CreateClient())
-                {
-                    var request = new HttpRequestMessage(HttpMethod.Get, server.BaseAddress);
-                    var response = await client.SendAsync(request);
-
-                    response.Dispose();
-                    request.Dispose();
-                }
-            }
+            using var server = new TestServer(builder);
+            using var client = server.CreateClient();
+            using var request = new HttpRequestMessage(HttpMethod.Get, server.BaseAddress);
+            using var response = await client.SendAsync(request);
 
             loggerMock.Verify(o => o.Write(It.IsAny<Serilog.Events.LogEventLevel>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()), Times.Exactly(1));
         }

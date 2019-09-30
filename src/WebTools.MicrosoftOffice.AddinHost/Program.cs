@@ -5,13 +5,15 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
-using WebTools.MicrosoftOffice.AddinHost.Certificates;
-using WebTools.MicrosoftOffice.AddinHost.Data;
-using WebTools.MicrosoftOffice.AddinHost.Resources;
+
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
+using WebTools.MicrosoftOffice.AddinHost.Certificates;
+using WebTools.MicrosoftOffice.AddinHost.Data;
+using WebTools.MicrosoftOffice.AddinHost.Resources;
 
 namespace WebTools.MicrosoftOffice.AddinHost
 {

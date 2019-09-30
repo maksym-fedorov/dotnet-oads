@@ -1,6 +1,8 @@
 using System;
-using WebTools.MicrosoftOffice.AddinHost.Certificates;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using WebTools.MicrosoftOffice.AddinHost.Certificates;
 
 namespace WebTools.MicrosoftOffice.AddinHost.IntegrationTests
 {

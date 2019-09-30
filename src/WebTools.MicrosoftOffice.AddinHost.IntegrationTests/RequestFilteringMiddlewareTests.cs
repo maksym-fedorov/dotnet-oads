@@ -1,12 +1,14 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using WebTools.MicrosoftOffice.AddinHost.Middleware;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using WebTools.MicrosoftOffice.AddinHost.Middleware;
 
 namespace WebTools.MicrosoftOffice.AddinHost.IntegrationTests
 {
@@ -25,19 +27,12 @@ namespace WebTools.MicrosoftOffice.AddinHost.IntegrationTests
                 .Configure(ab => ab
                     .UseMiddleware<RequestFilteringMiddleware>());
 
-            using (var server = new TestServer(builder))
-            {
-                using (var client = server.CreateClient())
-                {
-                    var request = new HttpRequestMessage(new HttpMethod(method), server.BaseAddress);
-                    var response = await client.SendAsync(request);
+            using var server = new TestServer(builder);
+            using var client = server.CreateClient();
+            using var request = new HttpRequestMessage(new HttpMethod(method), server.BaseAddress);
+            using var response = await client.SendAsync(request);
 
-                    response.Dispose();
-                    request.Dispose();
-
-                    Assert.AreEqual((HttpStatusCode)status, response.StatusCode);
-                }
-            }
+            Assert.AreEqual((HttpStatusCode)status, response.StatusCode);
         }
     }
 }

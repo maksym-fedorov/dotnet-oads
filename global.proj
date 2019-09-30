@@ -1,12 +1,9 @@
 <Project>
   <Import Sdk="Microsoft.Build.Traversal"
-          Project="Sdk.props"/>
+          Project="Sdk.props" />
   <ItemGroup>
     <ProjectReference Include="$(MSBuildThisFileDirectory)**\*.csproj" />
   </ItemGroup>
   <Import Sdk="Microsoft.Build.Traversal"
-          Project="Sdk.targets"/>
-  <Target Name="VSTest">
-    <CallTarget Targets="Test" />
-  </Target>
+          Project="Sdk.targets" />
 </Project>

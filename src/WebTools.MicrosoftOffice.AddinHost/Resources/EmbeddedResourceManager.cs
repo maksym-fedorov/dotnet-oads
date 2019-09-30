@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.IO;
 using System.Reflection;
 using System.Text;
 
@@ -24,20 +23,18 @@ namespace WebTools.MicrosoftOffice.AddinHost.Resources
                 throw new ArgumentNullException(nameof(name));
             }
 
-            using (var resourceStream = _assembly.GetManifestResourceStream(_namespace + "." + name))
+            using var resourceStream = _assembly.GetManifestResourceStream(_namespace + "." + name);
+
+            if (resourceStream == null)
             {
-                if (resourceStream == null)
-                {
-                    throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, Strings.GetString("resource.undefined"), name));
-                }
-
-                using (var bufferStream = new MemoryStream((int)resourceStream.Length))
-                {
-                    resourceStream.CopyTo(bufferStream);
-
-                    return Encoding.UTF8.GetString(bufferStream.ToArray());
-                }
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, Strings.GetString("resource.undefined"), name));
             }
+
+            var buffer = new byte[resourceStream.Length];
+
+            resourceStream.Read(buffer, 0, buffer.Length);
+
+            return Encoding.UTF8.GetString(buffer);
         }
     }
 }

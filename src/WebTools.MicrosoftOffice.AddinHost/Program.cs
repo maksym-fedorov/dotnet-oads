@@ -30,7 +30,7 @@ namespace WebTools.MicrosoftOffice.AddinHost
             var assembly = Assembly.GetExecutingAssembly();
 
             Console.WriteLine(Strings.GetString("program.assembly_info"), assembly.GetCustomAttribute<AssemblyProductAttribute>().Product, assembly.GetName().Version.ToString(3));
-            Console.WriteLine(assembly.GetCustomAttribute<AssemblyCopyrightAttribute>().Copyright?.Replace("\u00A9", "(c)"));
+            Console.WriteLine(assembly.GetCustomAttribute<AssemblyCopyrightAttribute>().Copyright?.Replace("\u00A9", "(c)", StringComparison.Ordinal));
             Console.WriteLine();
 
             var configurationBuilder = new ConfigurationBuilder()

@@ -104,7 +104,7 @@ namespace WebTools.MicrosoftOffice.AddinHost
         {
             context.HttpContext.Response.ContentType = "text/html";
 
-            var message = _errorPageTemplate.Replace("{message}", context.HttpContext.Request.GetEncodedPathAndQuery());
+            var message = _errorPageTemplate.Replace("{message}", context.HttpContext.Request.GetEncodedPathAndQuery(), StringComparison.Ordinal);
 
             return context.HttpContext.Response.WriteAsync(message, context.HttpContext.RequestAborted);
         }

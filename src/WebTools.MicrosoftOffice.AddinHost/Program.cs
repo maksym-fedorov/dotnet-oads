@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 using WebTools.MicrosoftOffice.AddinHost.Certificates;
 using WebTools.MicrosoftOffice.AddinHost.Data;
@@ -89,9 +90,9 @@ namespace WebTools.MicrosoftOffice.AddinHost
                     Console.WriteLine(Strings.GetString("server.address_info"), serverPortToken);
                     Console.WriteLine();
 
-                    var applicationLifetime = host.Services.GetRequiredService<IApplicationLifetime>();
+                    var applicationLifetime = host.Services.GetRequiredService<IHostApplicationLifetime>();
 
-                    _cancellationTokenSource.Token.Register(s => ((IApplicationLifetime)s).StopApplication(), applicationLifetime);
+                    _cancellationTokenSource.Token.Register(s => ((IHostApplicationLifetime)s).StopApplication(), applicationLifetime);
 
                     applicationLifetime.ApplicationStopping.WaitHandle.WaitOne();
                     certificate.Dispose();

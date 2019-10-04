@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using WebTools.MicrosoftOffice.AddinHost.Certificates;
 
-namespace WebTools.MicrosoftOffice.AddinHost.IntegrationTests
+namespace WebTools.MicrosoftOffice.AddinHost.UnitTests
 {
     [TestClass]
     public sealed class CertificateManagerTests

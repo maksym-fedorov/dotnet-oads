@@ -1,4 +1,5 @@
-﻿using System.Resources;
+﻿using System.Globalization;
+using System.Resources;
 
 namespace WebTools.MicrosoftOffice.AddinHost.Resources
 {
@@ -13,7 +14,7 @@ namespace WebTools.MicrosoftOffice.AddinHost.Resources
         /// <returns>The value of the resource localized for the caller's current UI culture, or null if name cannot be found in a resource set.</returns>
         public static string GetString(string name)
         {
-            return _resourceManager.GetString(name);
+            return _resourceManager.GetString(name, CultureInfo.CurrentCulture);
         }
     }
 }
